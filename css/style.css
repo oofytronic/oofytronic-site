@@ -123,7 +123,7 @@ html[data-motion="full"][data-scrolled][data-context-open] .island__context { gr
 }
 
 /* ---------- Hero ---------- */
-.hero { position: relative; overflow: hidden; padding-block: var(--space-7) var(--space-6); text-align: center; }
+.hero { position: relative; overflow: hidden; display: grid; align-content: center; min-height: min(80svh, 48rem); padding-block: var(--space-7) var(--space-6); text-align: center; }
 .hero__arcade {
   position: absolute; inset: auto 0 0 0; height: 70%; width: 100%; z-index: 0;
   mask-image: linear-gradient(to top, #000 0%, transparent 85%);
@@ -139,7 +139,7 @@ html[data-motion="full"][data-scrolled][data-context-open] .island__context { gr
 .hero p.lede { max-width: 38rem; margin-inline: auto; color: var(--text-soft); font-size: var(--step-1); }
 
 /* ---------- Index ---------- */
-.index { padding-block: var(--space-5) var(--space-6); }
+.index { padding: var(--space-5) var(--gutter) var(--section-space); }
 .index__head {
   display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--space-3);
   border-top: 1px solid var(--hairline-strong); padding-top: var(--space-4); margin-bottom: var(--space-5);
@@ -161,51 +161,50 @@ html[data-motion="full"][data-scrolled][data-context-open] .island__context { gr
   position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; margin: 0;
 }
 
-/* Dock island — see initDock() in js/main.js. Offsets mirror DOCK_TOP / DOCK_BOTTOM there. */
+/* Dock island — a vertical list in the right gutter (wide screens), a bottom pill on smaller ones.
+   In dynamic mode it is always fixed; js/main.js toggles data-dock between docked and away. */
+html[data-motion="full"] .filters-slot { display: contents; }
 html[data-motion="full"] .filters {
-  border: 1px solid transparent; border-radius: 999px; padding: 0;
-  transition:
-    opacity var(--speed) var(--ease), transform var(--speed) var(--ease), visibility var(--speed),
-    background var(--speed) var(--ease), border-color var(--speed) var(--ease), padding var(--speed) var(--ease);
-}
-html[data-motion="full"] .filters[data-dock="docked"],
-html[data-motion="full"] .filters[data-dock="away"] {
   position: fixed; z-index: 35;
-  top: calc(var(--space-3) + var(--island-h) + var(--space-2)); /* static horizontal position keeps it on the wrap edge */
-  padding: var(--space-1);
-  border-color: var(--hairline-strong);
+  top: calc(var(--space-3) + var(--island-h) + var(--space-2));
+  right: max(var(--space-4), calc((100% - var(--wrap)) / 2));
+  flex-direction: column; align-items: stretch; min-width: 10.5rem;
+  padding: var(--space-2);
+  border: 1px solid var(--hairline-strong); border-radius: var(--radius-island);
   background: color-mix(in srgb, var(--bg) 88%, transparent);
   -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  transition: opacity var(--speed) var(--ease), transform var(--speed) var(--ease), visibility var(--speed);
 }
-html[data-motion="full"] .filters[data-dock="away"] { opacity: 0; visibility: hidden; transform: translateY(-0.5rem); }
-html[data-motion="full"] .filters[data-dock="docked"] .filters__count {
-  position: static; width: auto; height: auto; overflow: visible; clip-path: none;
-  order: -1; margin: 0 var(--space-2) 0 var(--space-3); padding-right: var(--space-3);
-  border-right: 1px solid var(--hairline-strong);
+html[data-motion="full"] .filters[data-dock="away"] { opacity: 0; visibility: hidden; transform: translateX(0.75rem); }
+html[data-motion="full"] .filters__group { flex-direction: column; flex-wrap: nowrap; gap: 2px; }
+html[data-motion="full"] .filters button {
+  text-align: left; padding: var(--space-2) var(--space-3); border-radius: calc(var(--radius-island) - 0.35rem);
+  border-bottom-color: transparent;
+}
+html[data-motion="full"] .filters button[aria-pressed="true"] { color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); }
+html[data-motion="full"] .filters button:focus-visible { outline-offset: -3px; }
+html[data-motion="full"] .filters__count {
+  position: static; width: auto; height: auto; overflow: visible; clip-path: none; order: -1;
+  margin: 0 0 var(--space-2); padding: var(--space-1) var(--space-3) var(--space-2);
+  border-bottom: 1px solid var(--hairline-strong);
   font-size: var(--step--2); font-weight: 500; letter-spacing: var(--track-caps); text-transform: uppercase; color: var(--accent);
 }
-html[data-motion="full"] .filters[data-dock="docked"] .filters__group { gap: var(--space-1); flex-wrap: nowrap; }
-html[data-motion="full"] .filters[data-dock="docked"] button,
-html[data-motion="full"] .filters[data-dock="away"] button {
-  padding: var(--space-2) var(--space-3); border-radius: 999px; border-bottom-color: transparent;
-}
-html[data-motion="full"] .filters[data-dock="docked"] button[aria-pressed="true"],
-html[data-motion="full"] .filters[data-dock="away"] button[aria-pressed="true"] {
-  color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent);
-}
-html[data-motion="full"] .filters[data-dock="docked"] button:focus-visible { outline-offset: -3px; }
 
-@media (max-width: 40rem) {
-  /* Phones: dock above the bottom nav island, centred, scrolling sideways if needed. */
-  html[data-motion="full"] .filters[data-dock="docked"],
-  html[data-motion="full"] .filters[data-dock="away"] {
-    top: auto; left: 50%; translate: -50% 0;
-    bottom: calc(var(--space-3) + env(safe-area-inset-bottom) + var(--island-h) + var(--space-2) + var(--space-2));
-    max-width: calc(100vw - 2 * var(--space-3));
+@media (max-width: 63.99rem) {
+  /* No gutter to live in: centre a horizontal pill along the bottom, scrolling sideways if needed. */
+  html[data-motion="full"] .filters {
+    top: auto; right: auto; left: 50%; translate: -50% 0; flex-direction: row; min-width: 0;
+    bottom: calc(var(--space-3) + env(safe-area-inset-bottom));
+    max-width: calc(100vw - 2 * var(--space-3)); border-radius: 999px; padding: var(--space-1);
   }
   html[data-motion="full"] .filters[data-dock="away"] { transform: translateY(0.5rem); }
-  html[data-motion="full"] .filters[data-dock="docked"] .filters__group { overflow-x: auto; scrollbar-width: none; }
-  html[data-motion="full"] .filters[data-dock="docked"] .filters__count { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); border: 0; margin: 0; padding: 0; }
+  html[data-motion="full"] .filters__group { flex-direction: row; overflow-x: auto; scrollbar-width: none; }
+  html[data-motion="full"] .filters button { border-radius: 999px; }
+  html[data-motion="full"] .filters__count { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); border: 0; margin: 0; padding: 0; }
+}
+@media (max-width: 40rem) {
+  /* Phones also carry the nav island at the bottom; stack above it. */
+  html[data-motion="full"] .filters { bottom: calc(var(--space-3) + env(safe-area-inset-bottom) + var(--island-h) + var(--space-3)); }
 }
 
 /* ---------- Cards ---------- */
@@ -216,8 +215,10 @@ html[data-motion="full"] .filters[data-dock="docked"] button:focus-visible { out
 }
 .card-grid > li[hidden] { display: none; }
 @media (min-width: 52rem) {
-  .card-grid { grid-template-columns: repeat(2, 1fr); }
   .card-grid > .card-grid__featured { grid-column: 1 / -1; }
+}
+@media (min-width: 72rem) or ((min-width: 52rem) and (max-width: 63.99rem)) {
+  .card-grid { grid-template-columns: repeat(2, 1fr); }
 }
 .card {
   position: relative; height: 100%;
@@ -245,7 +246,10 @@ html[data-motion="full"] .filters[data-dock="docked"] button:focus-visible { out
 .card-grid__featured .card__excerpt { font-size: var(--step-1); }
 
 /* ---------- About ---------- */
-.about { border-top: 1px solid var(--hairline); padding-block: var(--space-6); display: grid; gap: var(--space-4); }
+.about {
+  background: linear-gradient(var(--hairline), var(--hairline)) no-repeat var(--gutter) 0 / calc(100% - 2 * var(--gutter)) 1px; /* rule aligned to the content column */
+  padding: var(--section-space) var(--gutter); display: grid; align-content: start; gap: var(--space-4); }
+html[data-motion="full"] .about { min-height: 80svh; }
 @media (min-width: 52rem) { .about { grid-template-columns: 1fr 2fr; } }
 .about h2 { font-family: var(--font-display); font-weight: 500; font-size: var(--step-2); }
 .about p { color: var(--text-soft); font-size: var(--step-1); max-width: 40rem; }
@@ -267,7 +271,7 @@ html[data-motion="full"] .filters[data-dock="docked"] button:focus-visible { out
   background: var(--accent);
   transform-origin: left; transform: scaleX(var(--progress, 0));
 }
-.article { padding-block: var(--space-6); }
+.article { padding-block: var(--space-6) var(--section-space); }
 .article__header { max-width: 48rem; margin: 0 auto var(--space-6); text-align: center; }
 .article__header .eyebrow { display: block; margin-bottom: var(--space-4); }
 .article__title { font-family: var(--font-display); font-weight: 400; font-size: var(--step-4); line-height: 1.04; letter-spacing: -0.01em; margin-bottom: var(--space-4); }

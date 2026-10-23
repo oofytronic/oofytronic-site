@@ -48,10 +48,17 @@
   /* Shape & motion */
   --radius: 2px;
   --measure: 40rem;
-  --wrap: 70rem;
+  --wrap: 80rem;
+  --gutter: 0rem; /* side room reserved for floating islands (wide screens only) */
+  --section-space: clamp(5rem, 16vh, 9rem);
+  --radius-island: 1.1rem;
   --track-caps: 0.16em;
   --header-h: 4.75rem;
   --island-h: 2.75rem;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
   --speed: 240ms;
+}
+
+@media (min-width: 64rem) {
+  :root { --gutter: 11rem; }
 }

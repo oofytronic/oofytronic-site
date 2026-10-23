@@ -67,15 +67,9 @@ const islandState = ({ y, tops, line, atEnd }) => ({
 });
 
 // ---------- Filter dock: pure state calculation ----------
-// px offsets mirror the CSS: the dock sits just beneath the nav island (top) or above it (phones).
-const DOCK_TOP = 68;
-const DOCK_BOTTOM = 112;
-// flow: in its natural place · docked: floating island · away: faded out (section is over).
-const dockState = ({ slotTop, slotBottom, sectionBottom, viewport, mobile }) => {
-  const passed = mobile ? slotBottom <= 0 : slotTop <= DOCK_TOP;
-  const edge = mobile ? viewport - DOCK_BOTTOM : DOCK_BOTTOM;
-  return !passed ? "flow" : sectionBottom <= edge ? "away" : "docked";
-};
+// Shown while the writing section overlaps the middle band of the viewport.
+const dockState = ({ sectionTop, sectionBottom, viewport }) =>
+  sectionTop <= viewport * 0.6 && sectionBottom >= viewport * 0.4 ? "docked" : "away";
 
 // ---------- Islands: DOM effects ----------
 const setFlag = (name) => (on_) => on_ ? root.setAttribute(name, "") : root.removeAttribute(name);
@@ -94,26 +88,14 @@ const paintCurrent = (links) => (target) =>
 
 const initDock = () => {
   const dock = $(".filters");
-  const slot = $(".filters-slot");
   const section = $("#writing");
-  if (!dock || !slot || !section) return { update: () => {}, reset: () => {} };
-  const phone = window.matchMedia("(max-width: 40rem)");
+  if (!dock || !section) return { update: () => {}, reset: () => {} };
   const measure = () => {
-    const s = slot.getBoundingClientRect();
-    return {
-      slotTop: s.top, slotBottom: s.bottom,
-      sectionBottom: section.getBoundingClientRect().bottom,
-      viewport: window.innerHeight, mobile: phone.matches,
-    };
+    const { top, bottom } = section.getBoundingClientRect();
+    return { sectionTop: top, sectionBottom: bottom, viewport: window.innerHeight };
   };
-  // Hold the slot open at the in-flow height so docking never shifts the page.
-  const holdSpace = () => { slot.style.minHeight = ""; slot.style.minHeight = `${dock.offsetHeight}px`; };
-  const apply = (state) => {
-    const changed = dock.dataset.dock !== state;
-    dock.dataset.dock = state;
-    if (state === "flow" && (changed || !slot.style.minHeight)) holdSpace();
-  };
-  return { update: () => apply(dockState(measure())), reset: () => { apply("flow"); slot.style.minHeight = ""; } };
+  const apply = (state) => { dock.dataset.dock = state; };
+  return { update: () => apply(dockState(measure())), reset: () => apply("flow") };
 };
 
 const initIslands = () => {
