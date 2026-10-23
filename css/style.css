@@ -65,13 +65,72 @@ h1, h2, h3 { text-wrap: balance; }
   color: var(--accent);
 }
 
+/* ---------- Zones ----------
+   Where islands live. An island only names its zone (data-zone); placement is defined here, once.
+
+     top-left   header, left edge      top-right  header, right edge (bottom pill on phones)
+     left       left gutter, 70rem up  (in flow below that)
+     right      right gutter, 70rem up (bottom pill below that); data-anchor="middle" centres it vertically
+
+   Floating zones act only in dynamic mode, and only on islands that carry data-dock.
+   One island per zone is visible at a time: triggers are mutually exclusive on any given page. */
+.site-header [data-zone="top-left"] { margin-right: auto; }
+.site-header [data-zone="top-right"] { margin-left: auto; }
+
+html[data-motion="full"] { --zone-lift: 0px; }
+@media (max-width: 40rem) {
+  html[data-motion="full"] { --zone-lift: calc(var(--island-h) + var(--space-3)); } /* the nav owns the very bottom */
+  .island__context { display: none; }
+}
+
+/* Gutter presentation (left, right) */
+@media (min-width: 70rem) {
+  html[data-motion="full"] :is([data-zone="left"], [data-zone="right"])[data-dock] {
+    position: fixed; z-index: 35; margin: 0; width: var(--zone-w); top: var(--zone-top);
+    border: 1px solid transparent; --edge: var(--hairline-strong);
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    transition: opacity var(--speed) var(--ease), transform var(--speed) var(--ease), visibility var(--speed);
+  }
+  html[data-motion="full"] [data-zone="left"][data-dock] { left: var(--zone-edge); --zone-away: translateX(-0.75rem); }
+  html[data-motion="full"] [data-zone="right"][data-dock] { right: var(--zone-edge); --zone-away: translateX(0.75rem); }
+  html[data-motion="full"] [data-zone][data-dock][data-anchor="middle"] { top: 0; bottom: 0; margin-block: auto; height: fit-content; }
+  html[data-motion="full"] :is([data-zone="left"], [data-zone="right"])[data-dock="away"] { opacity: 0; visibility: hidden; transform: var(--zone-away); }
+}
+
+/* Compact presentation: right becomes a bottom pill; left stays in flow */
+@media (max-width: 69.99rem) {
+  html[data-motion="full"] [data-zone="right"][data-dock] {
+    position: fixed; z-index: 35; margin: 0 auto; left: 0; right: 0; top: auto; width: fit-content;
+    max-width: calc(100vw - 2 * var(--space-3));
+    bottom: calc(var(--space-3) + env(safe-area-inset-bottom) + var(--zone-lift));
+    border: 1px solid transparent; --edge: var(--hairline-strong);
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    transition: opacity var(--speed) var(--ease), transform var(--speed) var(--ease), visibility var(--speed);
+  }
+  html[data-motion="full"] [data-zone="right"][data-dock="away"] { opacity: 0; visibility: hidden; transform: translateY(0.5rem); }
+}
+
+/* Header zones */
+@media (max-width: 40rem) {
+  html[data-motion="full"] [data-zone="top-right"] {
+    position: fixed; margin: 0 auto; left: 0; right: 0; width: fit-content; max-width: calc(100vw - 2 * var(--space-3));
+    bottom: calc(var(--space-3) + env(safe-area-inset-bottom));
+    --edge: var(--hairline-strong); padding: var(--space-1);
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  }
+  html[data-motion="full"] { scroll-padding-bottom: 6rem; }
+  html[data-motion="full"] body { padding-bottom: 5rem; }
+}
 /* ---------- Header ----------
    Baseline: a static header (no JS, or motion reduced).
    Enhancement: html[data-motion="full"] turns the wordmark and nav into
    floating "islands" that respond to scroll (state set in js/main.js). */
 .site-header { border-bottom: 1px solid var(--hairline); }
 .site-header .wrap {
-  display: flex; align-items: center; justify-content: space-between; gap: var(--space-4);
+  display: flex; align-items: center; gap: var(--space-4);
   padding-block: var(--space-3);
 }
 
@@ -140,21 +199,10 @@ html[data-motion="full"][data-scrolled] .island {
 }
 html[data-motion="full"][data-scrolled][data-context-open] .island__context { grid-template-columns: 1fr; visibility: visible; }
 
-@media (max-width: 40rem) {
-  .island__context { display: none; }
-  html[data-motion="full"] .island {
-    position: fixed; bottom: calc(var(--space-3) + env(safe-area-inset-bottom)); left: 0; right: 0; margin-inline: auto; width: fit-content;
-    max-width: calc(100vw - 2 * var(--space-3));
-    --edge: var(--hairline-strong); padding: var(--space-1);
-    background: color-mix(in srgb, var(--bg) 88%, transparent);
-    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
-  }
-  html[data-motion="full"] { scroll-padding-bottom: 6rem; }
-  html[data-motion="full"] body { padding-bottom: 5rem; }
-}
 @supports not (backdrop-filter: blur(1px)) {
   html[data-motion="full"][data-scrolled] .wordmark,
-  html[data-motion="full"][data-scrolled] .island { background: var(--bg); }
+  html[data-motion="full"][data-scrolled] .island,
+  html[data-motion="full"] [data-zone][data-dock] { background: var(--bg); }
 }
 
 /* ---------- Hero ---------- */
@@ -196,49 +244,28 @@ html[data-motion="full"][data-scrolled][data-context-open] .island__context { gr
   position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; margin: 0;
 }
 
-/* Dock island — a vertical list in the right gutter (wide screens), a bottom pill on smaller ones.
-   In dynamic mode it is always fixed; js/main.js toggles data-dock between docked and away. */
+/* Filters island: placement comes from its zone (see Zones). Only its internals live here. */
 html[data-motion="full"] .filters-slot { display: contents; }
-html[data-motion="full"] .filters {
-  position: fixed; z-index: 35;
-  top: calc(var(--space-3) + var(--island-h) + var(--space-2));
-  right: max(var(--space-4), calc((100% - var(--wrap)) / 2));
-  flex-direction: column; align-items: stretch; min-width: 10.5rem;
-  padding: var(--space-2);
-  border: 1px solid transparent; --edge: var(--hairline-strong);
-  background: color-mix(in srgb, var(--bg) 88%, transparent);
-  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
-  transition: opacity var(--speed) var(--ease), transform var(--speed) var(--ease), visibility var(--speed);
-}
-html[data-motion="full"] .filters[data-dock="away"] { opacity: 0; visibility: hidden; transform: translateX(0.75rem); }
-html[data-motion="full"] .filters__group { flex-direction: column; flex-wrap: nowrap; gap: 2px; }
-html[data-motion="full"] .filters button {
-  text-align: left; padding: var(--space-2) var(--space-3);
-  border-bottom-color: transparent;
-}
+html[data-motion="full"] .filters { align-items: stretch; }
+html[data-motion="full"] .filters button { text-align: left; padding: var(--space-2) var(--space-3); border-bottom-color: transparent; }
 html[data-motion="full"] .filters button[aria-pressed="true"] { color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); }
 html[data-motion="full"] .filters button:focus-visible { outline-offset: -3px; }
-html[data-motion="full"] .filters__count {
-  position: static; width: auto; height: auto; overflow: visible; clip-path: none; order: -1;
-  margin: 0 0 var(--space-2); padding: var(--space-1) var(--space-3) var(--space-2);
-  border-bottom: 1px solid var(--hairline-strong);
-  font-size: var(--step--2); font-weight: 500; letter-spacing: var(--track-caps); text-transform: uppercase; color: var(--accent);
-}
-
-@media (max-width: 63.99rem) {
-  /* No gutter to live in: centre a horizontal pill along the bottom, scrolling sideways if needed. */
-  html[data-motion="full"] .filters {
-    top: auto; left: 0; right: 0; margin-inline: auto; width: fit-content; flex-direction: row; min-width: 0;
-    bottom: calc(var(--space-3) + env(safe-area-inset-bottom));
-    max-width: calc(100vw - 2 * var(--space-3)); padding: var(--space-1);
+@media (min-width: 70rem) {
+  /* Gutter: a vertical list under a count */
+  html[data-motion="full"] .filters { flex-direction: column; padding: var(--space-2); }
+  html[data-motion="full"] .filters__group { flex-direction: column; flex-wrap: nowrap; gap: 2px; }
+  html[data-motion="full"] .filters__count {
+    position: static; width: auto; height: auto; overflow: visible; clip-path: none; order: -1;
+    margin: 0 0 var(--space-2); padding: var(--space-1) var(--space-3) var(--space-2);
+    border-bottom: 1px solid var(--hairline-strong);
+    font-size: var(--step--2); font-weight: 500; letter-spacing: var(--track-caps); text-transform: uppercase; color: var(--accent);
   }
-  html[data-motion="full"] .filters[data-dock="away"] { transform: translateY(0.5rem); }
+}
+@media (max-width: 69.99rem) {
+  /* Bottom pill: one row, scrolling sideways if needed; the count stays for screen readers only */
+  html[data-motion="full"] .filters { flex-direction: row; padding: var(--space-1); }
   html[data-motion="full"] .filters__group { flex-direction: row; overflow-x: auto; scrollbar-width: none; }
   html[data-motion="full"] .filters__count { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); border: 0; margin: 0; padding: 0; }
-}
-@media (max-width: 40rem) {
-  /* Phones also carry the nav island at the bottom; stack above it. */
-  html[data-motion="full"] .filters { bottom: calc(var(--space-3) + env(safe-area-inset-bottom) + var(--island-h) + var(--space-3)); }
 }
 
 /* ---------- Cards ---------- */
@@ -251,7 +278,7 @@ html[data-motion="full"] .filters__count {
 @media (min-width: 52rem) {
   .card-grid > .card-grid__featured { grid-column: 1 / -1; }
 }
-@media (min-width: 72rem) or ((min-width: 52rem) and (max-width: 63.99rem)) {
+@media (min-width: 72rem) or ((min-width: 52rem) and (max-width: 69.99rem)) {
   .card-grid { grid-template-columns: repeat(2, 1fr); }
 }
 .card {
@@ -337,8 +364,8 @@ html[data-motion="full"] .about { min-height: 80svh; }
 .article__footer a { color: var(--text-soft); text-decoration: none; }
 .article__footer a:hover { color: var(--accent); }
 
-/* ---------- Article islands: contents (left gutter) and next essay (right gutter) ----------
-   Static: ordinary in-flow blocks. Dynamic (wide): fixed islands whose data-dock is set by js/main.js. */
+/* ---------- Article islands: contents and next essay ----------
+   Static: ordinary in-flow blocks. Dynamic: placed by their zone (see Zones); only internals live here. */
 .toc, .next-island {
   max-width: var(--measure); margin: 0 auto var(--space-6); padding: var(--space-4);
   position: relative; border: 1px solid transparent; --edge: var(--hairline);
@@ -348,7 +375,7 @@ html[data-motion="full"] .about { min-height: 80svh; }
 .toc__list { list-style: none; margin: 0; padding: 0; }
 .toc__list a { display: block; padding: var(--space-1) 0; color: var(--text-soft); text-decoration: none; transition: color var(--speed), background var(--speed); }
 .toc__list a:hover, .toc__list a[aria-current] { color: var(--accent); }
-.next-island { position: relative; margin-top: var(--space-6); }
+.next-island { margin-top: var(--space-6); }
 .next-island:hover, .next-island:focus-within { --edge: var(--accent); }
 .next-island__link { font-family: var(--font-display); font-size: var(--step-2); line-height: 1.15; color: var(--text); text-decoration: none; display: block; }
 .next-island__link::after { content: " →"; color: var(--accent); }
@@ -356,49 +383,21 @@ html[data-motion="full"] .about { min-height: 80svh; }
 
 html[data-motion="full"] .article__header { display: grid; align-content: center; min-height: min(62svh, 36rem); margin-bottom: var(--space-5); }
 
-html[data-motion="full"] .next-island {
-  position: fixed; z-index: 35; margin: 0;
-  background: color-mix(in srgb, var(--bg) 88%, transparent);
-  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
-  --edge: var(--hairline-strong);
-  right: max(var(--space-4), calc((100% - var(--wrap)) / 2));
-  top: 0; bottom: 0; margin-block: auto; height: fit-content; width: 14rem; padding: var(--space-3) var(--space-4);
-  transition: opacity var(--speed) var(--ease), transform var(--speed) var(--ease), visibility var(--speed);
-}
-html[data-motion="full"] .next-island:hover, html[data-motion="full"] .next-island:focus-within { --edge: var(--accent); }
-html[data-motion="full"] .next-island__link { font-size: var(--step-1); }
-html[data-motion="full"] .next-island[data-dock="away"] { opacity: 0; visibility: hidden; transform: translateX(0.75rem); }
-
-@media (max-width: 69.99rem) {
-  html[data-motion="full"] .next-island {
-    left: 0; right: 0; margin-inline: auto; margin-block: 0; width: fit-content; height: auto; max-width: calc(100vw - 2 * var(--space-3));
-    top: auto; bottom: calc(var(--space-3) + env(safe-area-inset-bottom));
-    display: flex; align-items: baseline; gap: var(--space-3); padding: var(--space-2) var(--space-4);
-  }
-  html[data-motion="full"] .next-island__label { margin: 0; white-space: nowrap; }
-  html[data-motion="full"] .next-island__link { font-size: var(--step-0); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  html[data-motion="full"] .next-island[data-dock="away"] { transform: translateY(0.5rem); }
-}
-@media (max-width: 40rem) {
-  html[data-motion="full"] .next-island { bottom: calc(var(--space-3) + env(safe-area-inset-bottom) + var(--island-h) + var(--space-3)); }
-}
 @media (min-width: 70rem) {
-  html[data-motion="full"] .toc {
-    position: fixed; z-index: 35; margin: 0; width: 13rem; padding: var(--space-2);
-    top: calc(var(--space-3) + var(--island-h) + var(--space-2));
-    left: max(var(--space-4), calc((100% - var(--wrap)) / 2));
-    background: color-mix(in srgb, var(--bg) 88%, transparent);
-    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
-    --edge: var(--hairline-strong);
-    transition: opacity var(--speed) var(--ease), transform var(--speed) var(--ease), visibility var(--speed);
-  }
-  html[data-motion="full"] .toc[data-dock="away"] { opacity: 0; visibility: hidden; transform: translateX(-0.75rem); }
+  html[data-motion="full"] .next-island { padding: var(--space-3) var(--space-4); }
+  html[data-motion="full"] .next-island__link { font-size: var(--step-1); }
+  html[data-motion="full"] .toc { padding: var(--space-2); }
   html[data-motion="full"] .toc__title { padding: var(--space-1) var(--space-3) 0; margin: 0; }
   html[data-motion="full"] .toc__meter { display: block; height: 1px; margin: var(--space-2) var(--space-3); background: var(--hairline-strong); position: relative; }
   html[data-motion="full"] .toc__meter::after { content: ""; position: absolute; inset: -0.5px 0; background: var(--accent); transform-origin: left; transform: scaleX(var(--progress, 0)); }
   html[data-motion="full"] .toc__list a { padding: var(--space-2) var(--space-3); font-size: var(--step--1); line-height: 1.35; }
   html[data-motion="full"] .toc__list a[aria-current] { background: color-mix(in srgb, var(--accent) 12%, transparent); }
   html[data-motion="full"] .toc__list a:focus-visible { outline-offset: -3px; }
+}
+@media (max-width: 69.99rem) {
+  html[data-motion="full"] .next-island { display: flex; align-items: baseline; gap: var(--space-3); padding: var(--space-2) var(--space-4); }
+  html[data-motion="full"] .next-island__label { margin: 0; white-space: nowrap; }
+  html[data-motion="full"] .next-island__link { font-size: var(--step-0); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 }
 
 @media (max-width: 40rem) {
@@ -443,8 +442,8 @@ html[data-motion="reduced"] * { transition: none !important; }
 /* ---------- Pages: shared frame for projects & design system ---------- */
 .page { width: min(100% - 2 * var(--space-4), var(--measure-wide)); margin-inline: auto; padding-bottom: var(--section-space); }
 @media (min-width: 70rem) {
-  /* keep clear of the left-gutter contents island */
-  .page { width: min(var(--measure-wide), 100% - 30rem); }
+  /* keep clear of the gutter zones */
+  .page { width: min(var(--measure-wide), 100% - 2 * (var(--zone-w) + var(--space-5))); }
 }
 
 /* ---------- Projects page ---------- */

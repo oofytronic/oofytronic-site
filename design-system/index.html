@@ -53,7 +53,7 @@
       <ol class="principles">
         <li class="principle notched notched--lg"><span class="principle__n" aria-hidden="true">01</span><h3>Static first</h3><p>Every island is ordinary HTML that works with no JavaScript and with motion reduced. Dynamism is an enhancement layered on top, never a requirement.</p></li>
         <li class="principle notched notched--lg"><span class="principle__n" aria-hidden="true">02</span><h3>One element, two presentations</h3><p>An island is a single DOM element: an in-flow block when static, a floating island when dynamic. Controls are never duplicated for the sake of layout.</p></li>
-        <li class="principle notched notched--lg"><span class="principle__n" aria-hidden="true">03</span><h3>Islands live in zones</h3><p>Gutters and screen edges are reserved for islands. On wide screens, primary content never sits underneath one; on narrow screens they collapse to a pill.</p></li>
+        <li class="principle notched notched--lg"><span class="principle__n" aria-hidden="true">03</span><h3>Islands live in zones</h3><p>An island only names its zone; where that zone is, how wide, and what it becomes on narrow screens is defined once in CSS. Primary content never sits underneath an island on wide screens.</p></li>
         <li class="principle notched notched--lg"><span class="principle__n" aria-hidden="true">04</span><h3>Context is earned</h3><p>An island appears only while what it offers is relevant to what is on screen, and leaves when it is not. Quiet by default.</p></li>
         <li class="principle notched notched--lg"><span class="principle__n" aria-hidden="true">05</span><h3>State is declared, not scripted</h3><p>Markup declares what an island is; data attributes carry its state; CSS does all presentation. JavaScript only computes state, with pure functions.</p></li>
         <li class="principle notched notched--lg"><span class="principle__n" aria-hidden="true">06</span><h3>Square, or scooped</h3><p>Nothing is rounded. Corners are square, or bitten out as concave arcs, and the border always follows the arc.</p></li>
@@ -74,6 +74,20 @@
         <div class="zone zone--bc notched"><b>Compact pill</b><span>bottom, narrow screens</span></div>
         <figcaption class="visually-hidden">Wordmark top-left, nav top-right, contents in the left gutter, filters and next essay in the right gutter, a compact pill along the bottom on narrow screens.</figcaption>
       </figure>
+
+
+      <h3>Zone definitions</h3>
+      <p>Each zone is defined once. Islands in a zone inherit its placement, its hidden state and its narrow-screen behaviour.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th scope="col">Zone</th><th scope="col">70rem and up</th><th scope="col">Below 70rem</th><th scope="col">Used by</th></tr></thead>
+        <tbody>
+          <tr><th scope="row"><code>top-left</code></th><td>Header, left edge</td><td>Same</td><td>Wordmark</td></tr>
+          <tr><th scope="row"><code>top-right</code></th><td>Header, right edge</td><td>Same; a bottom pill on phones</td><td>Nav</td></tr>
+          <tr><th scope="row"><code>left</code></th><td>Left gutter, just beneath the header</td><td>In flow, as an ordinary block</td><td>Contents</td></tr>
+          <tr><th scope="row"><code>right</code></th><td>Right gutter, beneath the header, or centred with <code>data-anchor="middle"</code></td><td>Bottom pill</td><td>Filters, Next essay</td></tr>
+        </tbody>
+      </table></div>
+      <p>One island per zone is visible at a time. Triggers are mutually exclusive on any given page, so islands in the same zone never collide.</p>
 
       <h3>States</h3>
       <ul class="states">
@@ -99,9 +113,9 @@
         <tbody>
           <tr><th scope="row">Wordmark</th><td>top-left</td><td><code>scrolled</code></td><td><code>—</code></td><td>Full wordmark in the header</td></tr>
           <tr><th scope="row">Nav</th><td>top-right · bottom on phones</td><td><code>scrolled + scrollspy</code></td><td><code>[data-context]</code></td><td>Plain link row in the header</td></tr>
-          <tr><th scope="row">Filters</th><td>right gutter · bottom pill under 64rem</td><td><code>band</code></td><td><code>#writing</code></td><td>Horizontal row above the list</td></tr>
-          <tr><th scope="row">Contents</th><td>left gutter at 70rem and up</td><td><code>band</code></td><td><code>page body</code></td><td>Inline list under the title</td></tr>
-          <tr><th scope="row">Next essay</th><td>right gutter at 70rem and up · bottom pill</td><td><code>near-end</code></td><td><code>article body</code></td><td>Card at the end of the article</td></tr>
+          <tr><th scope="row">Filters</th><td>right · bottom pill under 70rem</td><td><code>band</code></td><td><code>#writing</code></td><td>Horizontal row above the list</td></tr>
+          <tr><th scope="row">Contents</th><td>left · in flow under 70rem</td><td><code>band</code></td><td><code>page body</code></td><td>Inline list under the title</td></tr>
+          <tr><th scope="row">Next essay</th><td>right (middle) · bottom pill under 70rem</td><td><code>near-end</code></td><td><code>article body</code></td><td>Card at the end of the article</td></tr>
         </tbody>
       </table></div>
 
@@ -109,7 +123,8 @@
       <p>Markup declares the island; the script reads it. Adding an island means adding attributes and CSS, not editing a list.</p>
       <pre><code>&lt;aside class=&quot;next-island&quot;
        data-island=&quot;next&quot;          &lt;!-- name, for the registry --&gt;
-       data-zone=&quot;right&quot;           &lt;!-- where it lives --&gt;
+       data-zone=&quot;right&quot;           &lt;!-- which zone: placement is defined once, in CSS --&gt;
+       data-anchor=&quot;middle&quot;        &lt;!-- optional: vertical position inside the zone --&gt;
        data-trigger=&quot;near-end&quot;     &lt;!-- rule that decides visibility --&gt;
        data-target=&quot;.article__body&quot; &lt;!-- what the rule measures --&gt;
        data-dock=&quot;flow&quot;&gt;           &lt;!-- state: flow | docked | away --&gt;

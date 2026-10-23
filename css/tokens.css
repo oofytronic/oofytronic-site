@@ -50,7 +50,10 @@
   --measure: 40rem;
   --measure-wide: 48rem;
   --wrap: 80rem;
-  --gutter: 0rem; /* side room reserved for floating islands (wide screens only) */
+  --gutter: 0rem; /* side room reserved for the gutter zones (wide screens only) */
+  --zone-w: 13rem; /* width of an island in a gutter zone */
+  --zone-edge: max(var(--space-4), calc((100% - var(--wrap)) / 2)); /* distance from the viewport edge to the wrap edge */
+  --zone-top: calc(var(--space-3) + var(--island-h) + var(--space-2)); /* just beneath the header islands */
   --section-space: clamp(5rem, 16vh, 9rem);
   --notch-sm: 0.5rem;
   --notch-lg: 0.75rem;
@@ -61,6 +64,6 @@
   --speed: 240ms;
 }
 
-@media (min-width: 64rem) {
-  :root { --gutter: 11rem; }
+@media (min-width: 70rem) {
+  :root { --gutter: 14rem; }
 }
