@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sovereign Software: The Case for Local-First · Oofytronic</title>
   <meta name="description" content="The cloud promised convenience and delivered tenancy. Local-first software returns the deed to the person who actually does the work.">
-  <meta name="theme-color" content="#0d0b10">
+  <meta name="theme-color" content="#0b0a09">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="../css/style.css">
@@ -14,38 +14,28 @@
 <body>
 <div class="progress" aria-hidden="true"></div>
 <a class="skip-link" href="#main">Skip to content</a>
-<div class="ribbon">Anno MMXXVI · Dispatches from the Distributed Realm</div>
-<header class="masthead wrap">
-  <svg class="crest" viewBox="0 0 64 76" role="img" aria-label="Oofytronic crest">
-  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8c6b27"/><stop offset=".5" stop-color="#e8c872"/><stop offset="1" stop-color="#8c6b27"/></linearGradient></defs>
-  <path d="M32 2 60 12v26c0 17-12 30-28 36C16 68 4 55 4 38V12Z" fill="#3c0f18" stroke="url(#g)" stroke-width="3"/>
-  <path d="M32 10 52 17v21c0 12-8 22-20 27C20 60 12 50 12 38V17Z" fill="none" stroke="url(#g)" stroke-width="1"/>
-  <circle cx="32" cy="30" r="9" fill="none" stroke="url(#g)" stroke-width="2.5"/>
-  <circle cx="32" cy="30" r="3" fill="url(#g)"/>
-  <path d="M32 39v16M26 47h12M23 22l-6-6M41 22l6-6" stroke="url(#g)" stroke-width="2.5" stroke-linecap="round"/>
-</svg>
-  <p class="wordmark gilt-text"><a href="../index.html">Oofytronic</a></p>
-  <p class="motto">Sovereign software for a free and wandering people.</p>
-  <nav class="site-nav" aria-label="Primary">
-    <ul>
-      <li><a href="../index.html">The Library</a></li>
-      <li><a href="../index.html#codex">Codex</a></li>
-      <li><a href="../index.html#about">Herald</a></li>
-    </ul>
-  </nav>
+<header class="site-header">
+  <div class="wrap">
+    <a class="wordmark" href="../index.html">Oofytronic</a>
+    <nav class="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="../index.html#writing">Writing</a></li>
+        <li><a href="../index.html#about">About</a></li>
+      </ul>
+    </nav>
+  </div>
 </header>
 <main id="main" class="wrap">
 <article class="article">
   <header class="article__header">
-    <p class="article__kicker">Local-First · Software</p>
-    <h1 class="article__title gilt-text">Sovereign Software: The Case for Local-First</h1>
-    <p class="article__dek">Your data should live in your keep, not in a landlord's cloud. A field guide to software that works when the drawbridge is up.</p>
+    <span class="eyebrow">Local-First · Software</span>
+    <h1 class="article__title">Sovereign Software: The Case for Local-First</h1>
+    <p class="article__dek">Your data should live on your own devices, not in a landlord's cloud. A field guide to software that still works when the network doesn't.</p>
     <p class="article__byline"><span>By Oofytronic</span><time datetime="2026-10-12">12 Oct 2026</time><span>7 min read</span></p>
   </header>
-  <div class="flourish" aria-hidden="true"><span>✦ ❦ ✦</span></div>
   <div class="article__body">
 <p>Every app you use today is a lease. The documents you write, the notes you keep, the plans you make: they sit on a server owned by someone else, and the moment that someone changes their terms, raises their price, or simply goes out of business, you discover what you actually owned. Which was a login.</p>
-<p>Local-first software is the old and sensible alternative. The primary copy of your data lives on your own device. The network is a convenience, a road between keeps, not the foundation under them.</p>
+<p>Local-first software is the old and sensible alternative. The primary copy of your data lives on your own device. The network is a convenience, a road between devices, not the foundation under them.</p>
 <h2>The Seven Ideals</h2>
 <p>The research lab Ink &amp; Switch articulated the movement in their 2019 essay <em>Local-First Software</em>, naming seven ideals. In my own words, a local-first application should:</p>
 <ol>
@@ -62,25 +52,25 @@
 <p>The technical key is the <strong>CRDT</strong>, a conflict-free replicated data type. A CRDT is a data structure designed so that any two replicas, edited independently and in any order, can be merged into the same result without a central referee. Libraries such as Automerge and Yjs make this practical for text, lists and maps.</p>
 <p>Pair a CRDT with a sync layer, whether a relay you host, a peer-to-peer connection, or a simple dumb file store, and you obtain collaboration without a server that must be trusted with the meaning of your data. The server becomes a postal courier. It carries sealed letters and cannot read them.</p>
 <pre><code>// the shape of a local-first write
-doc = change(doc, d =&gt; { d.notes.push({ text: "Raise the standard" }) })
+doc = change(doc, d =&gt; { d.notes.push({ text: "Ship it" }) })
 await saveToDisk(doc)        // instant, always works
 peers.forEach(p =&gt; p.sync(doc)) // whenever the road allows</code></pre>
 <h2>The Honest Costs</h2>
 <p>This is not free. Schema migrations are harder when you cannot upgrade every client at once. Access control is subtler when no central server enforces it. Storage grows with history unless you plan for compaction. And the product experience of "your data is a file on your machine" demands good design to avoid feeling like a regression to 1998.</p>
-<div class="aside-note"><strong>Marginal note.</strong> None of these are reasons to abandon the idea. They are the price of freehold, and freehold has always cost more than tenancy.</div>
+<div class="aside-note"><strong>Note</strong> None of these are reasons to abandon the idea. They are the price of freehold, and freehold has always cost more than tenancy.</div>
 <h2>Where to Begin</h2>
 <p>Start small. Choose one tool you rely on, and ask what would happen if its servers vanished tomorrow. Then build, or demand, the version that survives that morning.</p>
   </div>
   <footer class="article__footer">
-    <div class="flourish" aria-hidden="true"><span>❦</span></div>
-    <a href="../index.html#codex">← Return to the Library</a>
+    <a href="../index.html#writing">← All writing</a>
   </footer>
 </article>
 </main>
-<footer class="site-footer wrap">
-  <p class="sigil" aria-hidden="true">⚜</p>
-  <p>Hand-set by Oofytronic. Served without cookies, trackers, or overlords.</p>
-  <p>Local-first · Peer-to-peer · Open to all who would build</p>
+<footer class="site-footer">
+  <div class="wrap">
+    <p>© 2026 Oofytronic</p>
+    <p>Local-first · Peer-to-peer · No trackers</p>
+  </div>
 </footer>
 </body>
 </html>

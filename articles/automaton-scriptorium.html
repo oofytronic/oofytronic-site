@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>The Automaton in the Scriptorium · Oofytronic</title>
   <meta name="description" content="Agents can draft, sort, and execute while we sleep. Run them locally, bound them with clear rules, and they become the best apprentices a craftsperson ever had.">
-  <meta name="theme-color" content="#0d0b10">
+  <meta name="theme-color" content="#0b0a09">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="../css/style.css">
@@ -14,43 +14,33 @@
 <body>
 <div class="progress" aria-hidden="true"></div>
 <a class="skip-link" href="#main">Skip to content</a>
-<div class="ribbon">Anno MMXXVI · Dispatches from the Distributed Realm</div>
-<header class="masthead wrap">
-  <svg class="crest" viewBox="0 0 64 76" role="img" aria-label="Oofytronic crest">
-  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8c6b27"/><stop offset=".5" stop-color="#e8c872"/><stop offset="1" stop-color="#8c6b27"/></linearGradient></defs>
-  <path d="M32 2 60 12v26c0 17-12 30-28 36C16 68 4 55 4 38V12Z" fill="#3c0f18" stroke="url(#g)" stroke-width="3"/>
-  <path d="M32 10 52 17v21c0 12-8 22-20 27C20 60 12 50 12 38V17Z" fill="none" stroke="url(#g)" stroke-width="1"/>
-  <circle cx="32" cy="30" r="9" fill="none" stroke="url(#g)" stroke-width="2.5"/>
-  <circle cx="32" cy="30" r="3" fill="url(#g)"/>
-  <path d="M32 39v16M26 47h12M23 22l-6-6M41 22l6-6" stroke="url(#g)" stroke-width="2.5" stroke-linecap="round"/>
-</svg>
-  <p class="wordmark gilt-text"><a href="../index.html">Oofytronic</a></p>
-  <p class="motto">Sovereign software for a free and wandering people.</p>
-  <nav class="site-nav" aria-label="Primary">
-    <ul>
-      <li><a href="../index.html">The Library</a></li>
-      <li><a href="../index.html#codex">Codex</a></li>
-      <li><a href="../index.html#about">Herald</a></li>
-    </ul>
-  </nav>
+<header class="site-header">
+  <div class="wrap">
+    <a class="wordmark" href="../index.html">Oofytronic</a>
+    <nav class="site-nav" aria-label="Primary">
+      <ul>
+        <li><a href="../index.html#writing">Writing</a></li>
+        <li><a href="../index.html#about">About</a></li>
+      </ul>
+    </nav>
+  </div>
 </header>
 <main id="main" class="wrap">
 <article class="article">
   <header class="article__header">
-    <p class="article__kicker">AI · Automation</p>
-    <h1 class="article__title gilt-text">The Automaton in the Scriptorium</h1>
+    <span class="eyebrow">AI · Automation</span>
+    <h1 class="article__title">The Automaton in the Scriptorium</h1>
     <p class="article__dek">Medieval monasteries ran on copyists. Today's AI agents are our tireless scribes, and the question is who holds the quill.</p>
     <p class="article__byline"><span>By Oofytronic</span><time datetime="2026-09-28">28 Sep 2026</time><span>6 min read</span></p>
   </header>
-  <div class="flourish" aria-hidden="true"><span>✦ ❦ ✦</span></div>
   <div class="article__body">
 <p>In a medieval scriptorium, monks copied manuscripts by hand, one painstaking letter at a time. A single book could consume a year. Then the press arrived, and the labour of a year became the labour of a week. The monks did not vanish; the work simply moved up the ladder, from copying to editing, illuminating and judgement.</p>
 <p>We stand at a similar threshold. AI agents are the new scribes: tireless, fast, and occasionally prone to inventing a saint that never existed.</p>
 <h2>What an Agent Really Is</h2>
 <p>Strip away the marketing and an agent is a loop: a model reads a goal, chooses a tool, observes the result, and repeats until finished or stopped. The power is in the tools, whether files, a browser, a shell or an API, and the danger is in the same place.</p>
 <blockquote><p>An agent is only as trustworthy as the walls around it.</p><footer>A rule of the workshop</footer></blockquote>
-<h2>Keep the Scribe in Your Own Hall</h2>
-<p>There is a quiet convergence between this topic and the rest of my work. Open-weight models now run on consumer hardware, which means the scribe can sit in your own keep, reading your own documents, without shipping your private ledger to a stranger. Local inference brings the local-first ethos to AI.</p>
+<h2>Keep the Model on Your Own Hardware</h2>
+<p>There is a quiet convergence between this topic and the rest of my work. Open-weight models now run on consumer hardware, which means the model can run on your own machine, reading your own documents, without shipping your private ledger to a stranger. Local inference brings the local-first ethos to AI.</p>
 <ul>
   <li><strong>Privacy:</strong> sensitive material never leaves the device.</li>
   <li><strong>Resilience:</strong> the tool works when the API is down or the price changes.</li>
@@ -63,20 +53,20 @@
   <li><strong>Leave a paper trail.</strong> Log every action in plain text you can read.</li>
   <li><strong>Verify, then trust.</strong> Treat output as a draft from an apprentice, not a decree from an oracle.</li>
 </ol>
-<div class="aside-note"><strong>Marginal note.</strong> Automation that removes drudgery frees the craftsperson. Automation that removes accountability merely moves it somewhere you cannot see.</div>
-<h2>The Illuminator's Role</h2>
-<p>The scribe copies; the illuminator decides what is worth beautifying. The future of work with AI belongs to those who keep taste, judgement and responsibility for themselves, and delegate only the copying.</p>
+<div class="aside-note"><strong>Note</strong> Automation that removes drudgery frees the craftsperson. Automation that removes accountability merely moves it somewhere you cannot see.</div>
+<h2>Where Judgement Stays</h2>
+<p>The scribe copies; the editor decides what is worth keeping. The future of work with AI belongs to those who keep taste, judgement and responsibility for themselves, and delegate only the copying.</p>
   </div>
   <footer class="article__footer">
-    <div class="flourish" aria-hidden="true"><span>❦</span></div>
-    <a href="../index.html#codex">← Return to the Library</a>
+    <a href="../index.html#writing">← All writing</a>
   </footer>
 </article>
 </main>
-<footer class="site-footer wrap">
-  <p class="sigil" aria-hidden="true">⚜</p>
-  <p>Hand-set by Oofytronic. Served without cookies, trackers, or overlords.</p>
-  <p>Local-first · Peer-to-peer · Open to all who would build</p>
+<footer class="site-footer">
+  <div class="wrap">
+    <p>© 2026 Oofytronic</p>
+    <p>Local-first · Peer-to-peer · No trackers</p>
+  </div>
 </footer>
 </body>
 </html>

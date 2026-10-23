@@ -1,49 +1,40 @@
-/* Design tokens — every colour, size and flourish lives here. */
+/* Design tokens — every colour, size and space lives here. */
 :root {
-  /* Pigments */
-  --ink-900: #0d0b10;
-  --ink-800: #15121b;
-  --ink-700: #1e1a28;
-  --oxblood: #6b1d2a;
-  --oxblood-deep: #3c0f18;
-  --lapis: #25427a;
-  --verdigris: #3f8a76;
-  --gold-500: #c9a24b;
-  --gold-300: #e8c872;
-  --gold-700: #8c6b27;
-  --vellum-100: #f4ead2;
-  --vellum-300: #e6d6b0;
-  --vellum-500: #cdb88a;
-  --sepia-900: #2a1f17;
-  --sepia-600: #5a4632;
+  /* Palette */
+  --night-950: #0b0a09;
+  --night-900: #111010;
+  --night-800: #181614;
+  --night-700: #221f1b;
+  --cream-100: #f1ebdd;
+  --cream-300: #cfc7b4;
+  --stone-500: #8f8878;
+  --brass-400: #c4a867;
+  --brass-600: #8f7740;
 
   /* Semantic roles */
-  --bg: var(--ink-900);
-  --bg-raised: var(--ink-800);
-  --text: var(--vellum-100);
-  --text-muted: var(--vellum-500);
-  --accent: var(--gold-500);
-  --accent-bright: var(--gold-300);
-  --card-bg: var(--vellum-100);
-  --card-text: var(--sepia-900);
-  --card-muted: var(--sepia-600);
-  --rule: color-mix(in srgb, var(--gold-500) 45%, transparent);
-
-  /* Gilding */
-  --gilt: linear-gradient(135deg, var(--gold-700), var(--gold-300) 45%, var(--gold-500) 60%, var(--gold-700));
+  --bg: var(--night-950);
+  --surface: var(--night-900);
+  --surface-hover: var(--night-800);
+  --text: var(--cream-100);
+  --text-soft: var(--cream-300);
+  --text-muted: var(--stone-500);
+  --accent: var(--brass-400);
+  --hairline: color-mix(in srgb, var(--cream-100) 12%, transparent);
+  --hairline-strong: color-mix(in srgb, var(--cream-100) 24%, transparent);
 
   /* Type */
-  --font-display: "Cinzel Decorative", "Cinzel", "Trajan Pro", Georgia, serif;
-  --font-heading: "Cinzel", "Trajan Pro", Georgia, serif;
-  --font-body: "Cormorant Garamond", "EB Garamond", Garamond, Georgia, serif;
-  --font-blackletter: "UnifrakturCook", "Old English Text MT", serif;
+  --font-display: "Cormorant Garamond", "Cormorant", Georgia, serif;
+  --font-ui: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-text: "Newsreader", Georgia, serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, monospace;
 
-  --step--1: clamp(0.82rem, 0.8rem + 0.1vw, 0.9rem);
-  --step-0: clamp(1.15rem, 1.1rem + 0.25vw, 1.3rem);
-  --step-1: clamp(1.35rem, 1.25rem + 0.5vw, 1.65rem);
-  --step-2: clamp(1.7rem, 1.45rem + 1.2vw, 2.4rem);
-  --step-3: clamp(2.2rem, 1.7rem + 2.5vw, 3.6rem);
-  --step-4: clamp(2.1rem, 0.8rem + 7vw, 5.6rem);
+  --step--2: 0.72rem;
+  --step--1: 0.84rem;
+  --step-0: 1rem;
+  --step-1: clamp(1.15rem, 1.1rem + 0.3vw, 1.3rem);
+  --step-2: clamp(1.5rem, 1.35rem + 0.7vw, 1.9rem);
+  --step-3: clamp(2rem, 1.6rem + 2vw, 3rem);
+  --step-4: clamp(2.8rem, 1.8rem + 5vw, 5.5rem);
 
   /* Space */
   --space-1: 0.25rem;
@@ -52,16 +43,13 @@
   --space-4: 1.5rem;
   --space-5: 2.5rem;
   --space-6: 4rem;
-  --space-7: 6rem;
+  --space-7: 7rem;
 
   /* Shape & motion */
-  --measure: 66ch;
-  --wrap: 72rem;
-  --border-thin: 1px;
-  --border-bold: 3px;
-  --radius-arch: 999px 999px 0 0;
-  --shadow-card: 0 1px 0 var(--vellum-300) inset, 0 18px 40px -18px #000, 0 2px 6px #0008;
-  --shadow-glow: 0 0 0 1px var(--gold-500), 0 22px 50px -16px #000, 0 0 32px -4px color-mix(in srgb, var(--gold-500) 55%, transparent);
+  --radius: 2px;
+  --measure: 40rem;
+  --wrap: 70rem;
+  --track-caps: 0.16em;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
-  --speed: 280ms;
+  --speed: 240ms;
 }
