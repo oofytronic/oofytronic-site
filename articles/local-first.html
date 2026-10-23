@@ -16,12 +16,13 @@
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="wrap">
-    <a class="wordmark" href="../index.html"><span class="wordmark__o">O</span><span class="wordmark__rest"><span>ofytronic</span></span></a>
-    <nav class="island" aria-label="Primary">
+    <a class="wordmark" href="../index.html" data-island="wordmark" data-zone="top-left" data-trigger="scrolled"><span class="wordmark__o">O</span><span class="wordmark__rest"><span>ofytronic</span></span></a>
+    <nav class="island" aria-label="Primary" data-island="nav" data-zone="top-right" data-trigger="scrolled">
       <div class="island__context" aria-hidden="true"><span></span></div>
       <ul>
-        <li><a href="../index.html#writing">Writing</a></li>
-        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#writing" data-section="writing">Writing</a></li>
+        <li><a href="../projects/" data-section="projects">Projects</a></li>
+        <li><a href="../index.html#about" data-section="about">About</a></li>
       </ul>
     </nav>
   </div>
@@ -34,7 +35,7 @@
     <p class="article__dek">Your data should live on your own devices, not in a landlord's cloud. A field guide to software that still works when the network doesn't.</p>
     <p class="article__byline"><span>By Oofytronic</span><time datetime="2026-10-12">12 Oct 2026</time><span>7 min read</span></p>
   </header>
-  <nav class="toc" aria-label="Contents" data-dock="flow">
+  <nav class="toc" aria-label="Contents" data-island="contents" data-zone="left" data-trigger="band" data-target=".article__body" data-dock="flow">
     <p class="toc__title">In this essay</p>
     <div class="toc__meter" aria-hidden="true"></div>
     <ol class="toc__list">
@@ -72,7 +73,7 @@ peers.forEach(p =&gt; p.sync(doc)) // whenever the road allows</code></pre>
 <h2 id="where-to-begin">Where to Begin</h2>
 <p>Start small. Choose one tool you rely on, and ask what would happen if its servers vanished tomorrow. Then build, or demand, the version that survives that morning.</p>
   </div>
-  <aside class="next-island" data-dock="flow" aria-label="Continue reading">
+  <aside class="next-island" data-island="next" data-zone="right" data-trigger="near-end" data-target=".article__body" data-dock="flow" aria-label="Continue reading">
     <p class="next-island__label">Next essay</p>
     <a class="next-island__link" href="fealty-without-lords.html">Fealty Without Lords: Platforms as Digital Manors</a>
   </aside>
@@ -83,7 +84,7 @@ peers.forEach(p =&gt; p.sync(doc)) // whenever the road allows</code></pre>
 </main>
 <footer class="site-footer">
   <div class="wrap">
-    <p>© 2026 Oofytronic</p>
+    <p>© 2026 Oofytronic · <a href="../design-system/">Design system</a></p>
     <p>Local-first · Peer-to-peer · No trackers</p>
     <button type="button" class="motion-toggle" data-motion-toggle aria-pressed="false" hidden>Reduce motion</button>
   </div>

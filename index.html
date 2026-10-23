@@ -16,12 +16,13 @@
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="wrap">
-    <a class="wordmark" href="index.html"><span class="wordmark__o">O</span><span class="wordmark__rest"><span>ofytronic</span></span></a>
-    <nav class="island" aria-label="Primary">
+    <a class="wordmark" href="index.html" data-island="wordmark" data-zone="top-left" data-trigger="scrolled"><span class="wordmark__o">O</span><span class="wordmark__rest"><span>ofytronic</span></span></a>
+    <nav class="island" aria-label="Primary" data-island="nav" data-zone="top-right" data-trigger="scrolled">
       <div class="island__context" aria-hidden="true"><span></span></div>
       <ul>
-        <li><a href="index.html#writing">Writing</a></li>
-        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#writing" data-section="writing">Writing</a></li>
+        <li><a href="projects/" data-section="projects">Projects</a></li>
+        <li><a href="index.html#about" data-section="about">About</a></li>
       </ul>
     </nav>
   </div>
@@ -43,7 +44,7 @@
     <div class="index__head">
       <h2 id="writing-h">Latest writing</h2>
       <div class="filters-slot">
-        <div class="filters" data-dock="flow">
+        <div class="filters" data-island="filters" data-zone="right" data-trigger="band" data-target="#writing" data-dock="flow">
           <div class="filters__group" role="group" aria-label="Filter articles by topic">
             <button type="button" data-filter="all" aria-pressed="true">All</button>
             <button type="button" data-filter="local-first" aria-pressed="false">Local-first</button>
@@ -92,6 +93,41 @@
     </li>
     </ul>
   </section>
+  <section id="projects" class="index" data-context="Projects" aria-labelledby="projects-h">
+    <div class="index__head">
+      <h2 id="projects-h">Projects</h2>
+      <a class="more" href="projects/">All projects →</a>
+    </div>
+    <ul class="project-rows">
+      <li>
+        <article class="project-row">
+          <div class="project-row__main">
+            <h3 class="project-row__name"><a href="projects/#quill">Quill</a></h3>
+            <p class="project-row__blurb">A local-first notebook that syncs between your devices with no server in the middle.</p>
+          </div>
+          <p class="project-row__meta"><span class="status" data-status="prototype">Prototype</span><span>CRDTs · WebRTC · IndexedDB</span></p>
+        </article>
+      </li>
+      <li>
+        <article class="project-row">
+          <div class="project-row__main">
+            <h3 class="project-row__name"><a href="projects/#courier">Courier</a></h3>
+            <p class="project-row__blurb">Encrypted messaging over open relays, with an identity that is a key you hold.</p>
+          </div>
+          <p class="project-row__meta"><span class="status" data-status="research">Research</span><span>Nostr · Signed events · Passkeys</span></p>
+        </article>
+      </li>
+      <li>
+        <article class="project-row">
+          <div class="project-row__main">
+            <h3 class="project-row__name"><a href="projects/#scribe">Scribe</a></h3>
+            <p class="project-row__blurb">A local agent runner that keeps every action in a plain-text log you can read.</p>
+          </div>
+          <p class="project-row__meta"><span class="status" data-status="concept">Concept</span><span>Local models · Plain-text logs · Least privilege</span></p>
+        </article>
+      </li>
+    </ul>
+  </section>
   <section id="about" class="about" data-context="The author" aria-labelledby="about-h">
     <h2 id="about-h">About</h2>
     <p>I'm Oofytronic. I write and build at the frontier of distributed, decentralized and local-first technology, on the conviction that tools should serve the people who own them.</p>
@@ -100,7 +136,7 @@
 </main>
 <footer class="site-footer">
   <div class="wrap">
-    <p>© 2026 Oofytronic</p>
+    <p>© 2026 Oofytronic · <a href="design-system/">Design system</a></p>
     <p>Local-first · Peer-to-peer · No trackers</p>
     <button type="button" class="motion-toggle" data-motion-toggle aria-pressed="false" hidden>Reduce motion</button>
   </div>

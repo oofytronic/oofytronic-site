@@ -73,11 +73,9 @@ const inBand = ({ top, bottom, viewport }) =>
 const nearEnd = ({ bottom, viewport }) =>
   bottom <= viewport * 0.85 ? "docked" : "away"; // the end of the target is approaching
 
-const FLOATING = [
-  { selector: ".filters", target: "#writing", rule: inBand },
-  { selector: ".toc", target: ".article__body", rule: inBand },
-  { selector: ".next-island", target: ".article__body", rule: nearEnd },
-];
+// Islands declare themselves in markup: data-island, data-zone, data-trigger, data-target.
+// The trigger name picks the rule; see /design-system/ for the registry.
+const TRIGGER_RULES = { band: inBand, "near-end": nearEnd };
 
 // ---------- Islands: DOM effects ----------
 const setFlag = (name) => (on_) => on_ ? root.setAttribute(name, "") : root.removeAttribute(name);
@@ -88,17 +86,20 @@ const paintContext = (slot) => (label) => {
   if (label) slot.textContent = label; // keep old text while the slot collapses
   setContextOpen(Boolean(label));
 };
+// Links name their section with data-section; a page's own link keeps aria-current="page".
+const isPageLink = (a) => a.getAttribute("aria-current") === "page";
 const paintCurrent = (links) => (target) =>
-  links.forEach((a) =>
-    target?.id && hashOf(a) === `#${target.id}`
+  links.filter((a) => !isPageLink(a)).forEach((a) =>
+    target?.id && a.dataset.section === target.id
       ? a.setAttribute("aria-current", "location")
       : a.removeAttribute("aria-current"));
 
 const initFloating = () =>
-  FLOATING.flatMap(({ selector, target, rule }) => {
-    const el = $(selector);
-    const anchor = $(target);
-    if (!el || !anchor) return [];
+  $$("[data-island][data-trigger]").flatMap((el) => {
+    const rule = TRIGGER_RULES[el.dataset.trigger]; // "scrolled" islands are driven by initIslands instead
+    if (!rule) return [];
+    const anchor = $(el.dataset.target);
+    if (!anchor) return [];
     const setDock = (state) => { el.dataset.dock = state; };
     const measure = () => {
       const { top, bottom } = anchor.getBoundingClientRect();
@@ -170,4 +171,13 @@ const initMotion = () => {
   on("change", () => readStored() === null && apply(currentMotion()))(window.matchMedia("(prefers-reduced-motion: reduce)"));
 };
 
-[initFilters, initProgress, initMotion].forEach((init) => init());
+// ---------- Design system: live token values ----------
+// The system page lists tokens by name; values are read from the cascade so tokens.css stays the source of truth.
+const readToken = (name) => getComputedStyle(root).getPropertyValue(name).trim();
+const initTokens = () =>
+  $$("[data-token]").forEach((el) => {
+    const out = $("[data-token-value]", el);
+    if (out) out.textContent = readToken(el.dataset.token);
+  });
+
+[initFilters, initProgress, initMotion, initTokens].forEach((init) => init());

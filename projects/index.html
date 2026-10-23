@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projects · Oofytronic</title>
+  <meta name="description" content="Projects by Oofytronic in local-first software, peer-to-peer networks and automation.">
+  <meta name="theme-color" content="#0b0a09">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/main.js" defer></script>
+</head>
+<body>
+<div class="progress" aria-hidden="true"></div>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="wordmark" href="../index.html" data-island="wordmark" data-zone="top-left" data-trigger="scrolled"><span class="wordmark__o">O</span><span class="wordmark__rest"><span>ofytronic</span></span></a>
+    <nav class="island" aria-label="Primary" data-island="nav" data-zone="top-right" data-trigger="scrolled">
+      <div class="island__context" aria-hidden="true"><span></span></div>
+      <ul>
+        <li><a href="../index.html#writing" data-section="writing">Writing</a></li>
+        <li><a href="../projects/" data-section="projects" aria-current="page">Projects</a></li>
+        <li><a href="../index.html#about" data-section="about">About</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<div class="page">
+  <header class="article__header">
+    <span class="eyebrow">Projects</span>
+    <h1 class="article__title">Things I'm building</h1>
+    <p class="article__dek">Small, sharp experiments in local-first software, open networks and automation.</p>
+  </header>
+  <nav class="toc" aria-label="Contents" data-island="contents" data-zone="left" data-trigger="band" data-target="#project-list" data-dock="flow">
+    <p class="toc__title">On this page</p>
+    <div class="toc__meter" aria-hidden="true"></div>
+    <ol class="toc__list">
+      <li><a href="#quill">Quill</a></li>
+      <li><a href="#courier">Courier</a></li>
+      <li><a href="#scribe">Scribe</a></li>
+    </ol>
+  </nav>
+  <div id="project-list" class="project-list">
+    <article class="project" data-context="Quill">
+      <p class="eyebrow"><span class="status" data-status="prototype">Prototype</span></p>
+      <h2 id="quill">Quill</h2>
+      <p class="project__blurb">A local-first notebook that syncs between your devices with no server in the middle.</p>
+      <p>Quill keeps every note as a document on your own device. Edits merge automatically when your devices meet, whether over a direct peer connection or a simple relay that only ever sees sealed bytes.</p>
+      <p>The goal is a notebook that is instant, works on a plane, and is still yours if the project disappears.</p>
+      <dl class="facts">
+        <div><dt>Status</dt><dd>Prototype</dd></div>
+        <div><dt>Built with</dt><dd>CRDTs, WebRTC, IndexedDB</dd></div>
+        <div><dt>Writing</dt><dd><a href="../articles/local-first.html">Sovereign Software: The Case for Local-First</a></dd></div>
+      </dl>
+    </article>
+    <article class="project" data-context="Courier">
+      <p class="eyebrow"><span class="status" data-status="research">Research</span></p>
+      <h2 id="courier">Courier</h2>
+      <p class="project__blurb">Encrypted messaging over open relays, with an identity that is a key you hold.</p>
+      <p>Courier explores what messaging looks like when no company owns the address book. Your identity is a keypair; relays are interchangeable couriers; moving house costs nothing.</p>
+      <p>Open questions: key recovery that does not reintroduce a landlord, and discovery without a central directory.</p>
+      <dl class="facts">
+        <div><dt>Status</dt><dd>Research</dd></div>
+        <div><dt>Built with</dt><dd>Nostr, Signed events, Passkeys</dd></div>
+        <div><dt>Writing</dt><dd><a href="../articles/fealty-without-lords.html">Fealty Without Lords: Platforms as Digital Manors</a></dd></div>
+      </dl>
+    </article>
+    <article class="project" data-context="Scribe">
+      <p class="eyebrow"><span class="status" data-status="concept">Concept</span></p>
+      <h2 id="scribe">Scribe</h2>
+      <p class="project__blurb">A local agent runner that keeps every action in a plain-text log you can read.</p>
+      <p>Scribe runs automations on your own machine with the narrowest permissions that do the job. Every action is appended to a human-readable log, and anything irreversible waits for your seal.</p>
+      <p>It is the rules from the essay, written as software.</p>
+      <dl class="facts">
+        <div><dt>Status</dt><dd>Concept</dd></div>
+        <div><dt>Built with</dt><dd>Local models, Plain-text logs, Least privilege</dd></div>
+        <div><dt>Writing</dt><dd><a href="../articles/automaton-scriptorium.html">The Automaton in the Scriptorium</a></dd></div>
+      </dl>
+    </article>
+  </div>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p>© 2026 Oofytronic · <a href="../design-system/">Design system</a></p>
+    <p>Local-first · Peer-to-peer · No trackers</p>
+    <button type="button" class="motion-toggle" data-motion-toggle aria-pressed="false" hidden>Reduce motion</button>
+  </div>
+</footer>
+</body>
+</html>

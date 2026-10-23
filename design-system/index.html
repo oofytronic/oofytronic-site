@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Design system · Oofytronic</title>
+  <meta name="description" content="The design tokens, island architecture and components behind this site.">
+  <meta name="theme-color" content="#0b0a09">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/main.js" defer></script>
+</head>
+<body>
+<div class="progress" aria-hidden="true"></div>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="wordmark" href="../index.html" data-island="wordmark" data-zone="top-left" data-trigger="scrolled"><span class="wordmark__o">O</span><span class="wordmark__rest"><span>ofytronic</span></span></a>
+    <nav class="island" aria-label="Primary" data-island="nav" data-zone="top-right" data-trigger="scrolled">
+      <div class="island__context" aria-hidden="true"><span></span></div>
+      <ul>
+        <li><a href="../index.html#writing" data-section="writing">Writing</a></li>
+        <li><a href="../projects/" data-section="projects">Projects</a></li>
+        <li><a href="../index.html#about" data-section="about">About</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<div class="page doc">
+  <header class="article__header">
+    <span class="eyebrow">Design system</span>
+    <h1 class="article__title">The Oofytronic system</h1>
+    <p class="article__dek">A strict, small vocabulary for a site built from floating islands. Token values on this page are read live from the stylesheet.</p>
+  </header>
+  <nav class="toc" aria-label="Contents" data-island="contents" data-zone="left" data-trigger="band" data-target="#ds-body" data-dock="flow">
+    <p class="toc__title">On this page</p>
+    <div class="toc__meter" aria-hidden="true"></div>
+    <ol class="toc__list">
+      <li><a href="#principles">Principles</a></li>
+      <li><a href="#islands">Islands</a></li>
+      <li><a href="#color">Color</a></li>
+      <li><a href="#type">Type</a></li>
+      <li><a href="#space">Space &amp; shape</a></li>
+      <li><a href="#components">Components</a></li>
+    </ol>
+  </nav>
+  <div id="ds-body">
+    <section class="doc__section" data-context="Principles" aria-labelledby="principles">
+      <h2 id="principles">Principles</h2>
+      <p class="doc__lede">The aim is to find the end state of a layout built from islands: contextual panels that appear when useful, in places that never fight the content. These are the rules the site follows.</p>
+      <ol class="principles">
+        <li class="principle notched notched--lg"><span class="principle__n" aria-hidden="true">01</span><h3>Static first</h3><p>Every island is ordinary HTML that works with no JavaScript and with motion reduced. Dynamism is an enhancement layered on top, never a requirement.</p></li>
+        <li class="principle notched notched--lg"><span class="principle__n" aria-hidden="true">02</span><h3>One element, two presentations</h3><p>An island is a single DOM element: an in-flow block when static, a floating island when dynamic. Controls are never duplicated for the sake of layout.</p></li>
+        <li class="principle notched notched--lg"><span class="principle__n" aria-hidden="true">03</span><h3>Islands live in zones</h3><p>Gutters and screen edges are reserved for islands. On wide screens, primary content never sits underneath one; on narrow screens they collapse to a pill.</p></li>
+        <li class="principle notched notched--lg"><span class="principle__n" aria-hidden="true">04</span><h3>Context is earned</h3><p>An island appears only while what it offers is relevant to what is on screen, and leaves when it is not. Quiet by default.</p></li>
+        <li class="principle notched notched--lg"><span class="principle__n" aria-hidden="true">05</span><h3>State is declared, not scripted</h3><p>Markup declares what an island is; data attributes carry its state; CSS does all presentation. JavaScript only computes state, with pure functions.</p></li>
+        <li class="principle notched notched--lg"><span class="principle__n" aria-hidden="true">06</span><h3>Square, or scooped</h3><p>Nothing is rounded. Corners are square, or bitten out as concave arcs, and the border always follows the arc.</p></li>
+      </ol>
+    </section>
+
+    <section class="doc__section" data-context="Islands" aria-labelledby="islands">
+      <h2 id="islands">Islands</h2>
+      <p class="doc__lede">An island is a small, self-contained piece of interface with a <strong>zone</strong>, a <strong>trigger</strong> and a <strong>fallback</strong>. This is the whole model.</p>
+
+      <h3>Zones</h3>
+      <figure class="zone-map notched notched--lg">
+        <div class="zone zone--tl notched"><b>Wordmark</b><span>top-left</span></div>
+        <div class="zone zone--tr notched"><b>Nav</b><span>top-right</span></div>
+        <div class="zone zone--gl notched"><b>Contents</b><span>left gutter</span></div>
+        <div class="zone zone--main"><span>Content column</span><i></i><i></i><i></i></div>
+        <div class="zone zone--gr notched"><b>Filters</b><b>Next essay</b><span>right gutter</span></div>
+        <div class="zone zone--bc notched"><b>Compact pill</b><span>bottom, narrow screens</span></div>
+        <figcaption class="visually-hidden">Wordmark top-left, nav top-right, contents in the left gutter, filters and next essay in the right gutter, a compact pill along the bottom on narrow screens.</figcaption>
+      </figure>
+
+      <h3>States</h3>
+      <ul class="states">
+        <li class="notched"><code>flow</code><p>In its natural place in the page. The static baseline, and the state when motion is reduced or JavaScript is off.</p></li>
+        <li class="notched"><code>docked</code><p>Floating in its zone, visible, because its trigger says what it offers is relevant now.</p></li>
+        <li class="notched"><code>away</code><p>Floating but hidden: faded, <code>visibility: hidden</code>, out of the tab order and the accessibility tree.</p></li>
+      </ul>
+
+      <h3>Triggers</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th scope="col">Trigger</th><th scope="col">Fires when</th></tr></thead>
+        <tbody>
+          <tr><th scope="row"><code>scrolled</code></th><td>The page has moved more than 48px. Collapses the wordmark and boxes the nav.</td></tr>
+          <tr><th scope="row"><code>band</code></th><td>The target overlaps the middle band of the viewport (between 40% and 60% of its height).</td></tr>
+          <tr><th scope="row"><code>near-end</code></th><td>The bottom of the target has risen above 85% of the viewport: the end is coming.</td></tr>
+          <tr><th scope="row"><code>scrollspy</code></th><td>The last <code>[data-context]</code> target whose top has passed the reading line at 30%. At the page end the final target wins.</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Registry</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th scope="col">Island</th><th scope="col">Zone</th><th scope="col">Trigger</th><th scope="col">Target</th><th scope="col">Static fallback</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Wordmark</th><td>top-left</td><td><code>scrolled</code></td><td><code>—</code></td><td>Full wordmark in the header</td></tr>
+          <tr><th scope="row">Nav</th><td>top-right · bottom on phones</td><td><code>scrolled + scrollspy</code></td><td><code>[data-context]</code></td><td>Plain link row in the header</td></tr>
+          <tr><th scope="row">Filters</th><td>right gutter · bottom pill under 64rem</td><td><code>band</code></td><td><code>#writing</code></td><td>Horizontal row above the list</td></tr>
+          <tr><th scope="row">Contents</th><td>left gutter at 70rem and up</td><td><code>band</code></td><td><code>page body</code></td><td>Inline list under the title</td></tr>
+          <tr><th scope="row">Next essay</th><td>right gutter at 70rem and up · bottom pill</td><td><code>near-end</code></td><td><code>article body</code></td><td>Card at the end of the article</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>The contract</h3>
+      <p>Markup declares the island; the script reads it. Adding an island means adding attributes and CSS, not editing a list.</p>
+      <pre><code>&lt;aside class=&quot;next-island&quot;
+       data-island=&quot;next&quot;          &lt;!-- name, for the registry --&gt;
+       data-zone=&quot;right&quot;           &lt;!-- where it lives --&gt;
+       data-trigger=&quot;near-end&quot;     &lt;!-- rule that decides visibility --&gt;
+       data-target=&quot;.article__body&quot; &lt;!-- what the rule measures --&gt;
+       data-dock=&quot;flow&quot;&gt;           &lt;!-- state: flow | docked | away --&gt;
+  …ordinary, accessible HTML…
+&lt;/aside&gt;</code></pre>
+      <p>Visibility is a pure function of measurements, so rules are trivial to read and test.</p>
+      <pre><code>// A trigger rule is a pure function: measurements in, state out.
+const inBand = ({ top, bottom, viewport }) =&gt;
+  top &lt;= viewport * 0.6 &amp;&amp; bottom &gt;= viewport * 0.4 ? &quot;docked&quot; : &quot;away&quot;;
+
+const TRIGGER_RULES = { band: inBand, &quot;near-end&quot;: nearEnd };</code></pre>
+
+      <h3>Motion and access</h3>
+      <ul class="rules">
+        <li>The page follows <code>prefers-reduced-motion</code> live, and the footer toggle overrides it and is remembered.</li>
+        <li>Reduced motion means the static baseline, not a slower animation: nothing floats and nothing changes on scroll.</li>
+        <li>Context text inside an island is <code>aria-hidden</code> because it repeats the page; counts that matter use a polite live region.</li>
+        <li>Away islands leave the accessibility tree. Anchor jumps leave room for the islands via <code>scroll-padding</code>.</li>
+      </ul>
+    </section>
+
+    <section class="doc__section" data-context="Color" aria-labelledby="color">
+      <h2 id="color">Color</h2>
+      <p class="doc__lede">Warm near-black, warm cream, and one brass accent used sparingly: labels, the active item, hover.</p>
+      <h3>Pigments</h3>
+      <ul class="swatches">
+        <li class="swatch" data-token="--night-950"><span class="swatch__chip" style="--c: var(--night-950)"></span><code>--night-950</code><span class="swatch__value" data-token-value></span></li><li class="swatch" data-token="--night-900"><span class="swatch__chip" style="--c: var(--night-900)"></span><code>--night-900</code><span class="swatch__value" data-token-value></span></li><li class="swatch" data-token="--night-800"><span class="swatch__chip" style="--c: var(--night-800)"></span><code>--night-800</code><span class="swatch__value" data-token-value></span></li><li class="swatch" data-token="--night-700"><span class="swatch__chip" style="--c: var(--night-700)"></span><code>--night-700</code><span class="swatch__value" data-token-value></span></li><li class="swatch" data-token="--cream-100"><span class="swatch__chip" style="--c: var(--cream-100)"></span><code>--cream-100</code><span class="swatch__value" data-token-value></span></li><li class="swatch" data-token="--cream-300"><span class="swatch__chip" style="--c: var(--cream-300)"></span><code>--cream-300</code><span class="swatch__value" data-token-value></span></li><li class="swatch" data-token="--stone-500"><span class="swatch__chip" style="--c: var(--stone-500)"></span><code>--stone-500</code><span class="swatch__value" data-token-value></span></li><li class="swatch" data-token="--brass-400"><span class="swatch__chip" style="--c: var(--brass-400)"></span><code>--brass-400</code><span class="swatch__value" data-token-value></span></li><li class="swatch" data-token="--brass-600"><span class="swatch__chip" style="--c: var(--brass-600)"></span><code>--brass-600</code><span class="swatch__value" data-token-value></span></li>
+      </ul>
+      <h3>Roles</h3>
+      <ul class="swatches">
+        <li class="swatch" data-token="--bg"><span class="swatch__chip" style="--c: var(--bg)"></span><code>--bg</code><span class="swatch__value" data-token-value></span></li><li class="swatch" data-token="--surface"><span class="swatch__chip" style="--c: var(--surface)"></span><code>--surface</code><span class="swatch__value" data-token-value></span></li><li class="swatch" data-token="--surface-hover"><span class="swatch__chip" style="--c: var(--surface-hover)"></span><code>--surface-hover</code><span class="swatch__value" data-token-value></span></li><li class="swatch" data-token="--text"><span class="swatch__chip" style="--c: var(--text)"></span><code>--text</code><span class="swatch__value" data-token-value></span></li><li class="swatch" data-token="--text-soft"><span class="swatch__chip" style="--c: var(--text-soft)"></span><code>--text-soft</code><span class="swatch__value" data-token-value></span></li><li class="swatch" data-token="--text-muted"><span class="swatch__chip" style="--c: var(--text-muted)"></span><code>--text-muted</code><span class="swatch__value" data-token-value></span></li><li class="swatch" data-token="--accent"><span class="swatch__chip" style="--c: var(--accent)"></span><code>--accent</code><span class="swatch__value" data-token-value></span></li><li class="swatch" data-token="--hairline"><span class="swatch__chip" style="--c: var(--hairline)"></span><code>--hairline</code><span class="swatch__value" data-token-value></span></li><li class="swatch" data-token="--hairline-strong"><span class="swatch__chip" style="--c: var(--hairline-strong)"></span><code>--hairline-strong</code><span class="swatch__value" data-token-value></span></li>
+      </ul>
+    </section>
+
+    <section class="doc__section" data-context="Type" aria-labelledby="type">
+      <h2 id="type">Type</h2>
+      <p class="doc__lede">A classical serif for display, a clean sans for interface, a book serif for reading.</p>
+      <ul class="faces">
+        <li><p class="faces__sample" style="font-family: var(--font-display)">Software you own</p><p><code>--font-display</code> · Cormorant Garamond · headlines, wordmark</p></li>
+        <li><p class="faces__sample" style="font-family: var(--font-ui); font-size: var(--step-1)">Networks you share</p><p><code>--font-ui</code> · Inter · interface, metadata, labels</p></li>
+        <li><p class="faces__sample" style="font-family: var(--font-text); font-size: var(--step-1)">Hold your own keys</p><p><code>--font-text</code> · Newsreader · long-form reading</p></li>
+      </ul>
+      <h3>Scale</h3>
+      <ul class="scale">
+        <li data-token="--step-4"><span class="scale__sample" style="font-size: var(--step-4)">Display</span><code>--step-4</code><span data-token-value></span></li>
+        <li data-token="--step-3"><span class="scale__sample" style="font-size: var(--step-3)">Headline</span><code>--step-3</code><span data-token-value></span></li>
+        <li data-token="--step-2"><span class="scale__sample" style="font-size: var(--step-2)">Subhead</span><code>--step-2</code><span data-token-value></span></li>
+        <li data-token="--step-1"><span class="scale__sample" style="font-size: var(--step-1)">Lede</span><code>--step-1</code><span data-token-value></span></li>
+        <li data-token="--step-0"><span class="scale__sample" style="font-size: var(--step-0)">Body copy sets the base measure</span><code>--step-0</code><span data-token-value></span></li>
+        <li data-token="--step--1"><span class="scale__sample" style="font-size: var(--step--1)">Interface text and metadata</span><code>--step--1</code><span data-token-value></span></li>
+        <li data-token="--step--2"><span class="scale__sample" style="font-size: var(--step--2)">LABELS AND EYEBROWS</span><code>--step--2</code><span data-token-value></span></li>
+      </ul>
+    </section>
+
+    <section class="doc__section" data-context="Space and shape" aria-labelledby="space">
+      <h2 id="space">Space &amp; shape</h2>
+      <p class="doc__lede">Generous spacing, hairline rules, and corners that are square or scooped, never rounded.</p>
+      <h3>Spacing</h3>
+      <ul class="space-bars">
+        <li data-token="--space-1"><code>--space-1</code><span class="space-bars__bar" style="width: var(--space-1)"></span><span data-token-value></span></li><li data-token="--space-2"><code>--space-2</code><span class="space-bars__bar" style="width: var(--space-2)"></span><span data-token-value></span></li><li data-token="--space-3"><code>--space-3</code><span class="space-bars__bar" style="width: var(--space-3)"></span><span data-token-value></span></li><li data-token="--space-4"><code>--space-4</code><span class="space-bars__bar" style="width: var(--space-4)"></span><span data-token-value></span></li><li data-token="--space-5"><code>--space-5</code><span class="space-bars__bar" style="width: var(--space-5)"></span><span data-token-value></span></li><li data-token="--space-6"><code>--space-6</code><span class="space-bars__bar" style="width: var(--space-6)"></span><span data-token-value></span></li><li data-token="--space-7"><code>--space-7</code><span class="space-bars__bar" style="width: var(--space-7)"></span><span data-token-value></span></li>
+      </ul>
+      <h3>Notched corners</h3>
+      <p>Concave quarter-circle bites cut with a mask and stroked in the border colour, so the outline follows the arc. Two sizes; apply with <code>.notched</code> and <code>.notched--lg</code>.</p>
+      <div class="notch-demo">
+        <div class="notched" data-token="--notch-sm"><code>--notch-sm</code><span data-token-value></span></div>
+        <div class="notched notched--lg" data-token="--notch-lg"><code>--notch-lg</code><span data-token-value></span></div>
+      </div>
+      <h3>Layout tokens</h3>
+      <ul class="tokens">
+        <li data-token="--measure"><code>--measure</code><span data-token-value></span></li><li data-token="--wrap"><code>--wrap</code><span data-token-value></span></li><li data-token="--gutter"><code>--gutter</code><span data-token-value></span></li><li data-token="--section-space"><code>--section-space</code><span data-token-value></span></li><li data-token="--header-h"><code>--header-h</code><span data-token-value></span></li><li data-token="--island-h"><code>--island-h</code><span data-token-value></span></li><li data-token="--speed"><code>--speed</code><span data-token-value></span></li>
+      </ul>
+    </section>
+
+    <section class="doc__section" data-context="Components" aria-labelledby="components">
+      <h2 id="components">Components</h2>
+      <p class="doc__lede">Live examples built from the same classes the site uses.</p>
+      <h3>Card</h3>
+      <article class="card" style="max-width: 24rem">
+        <div class="card__top"><ul class="card__tags" aria-label="Topics"><li>Local-First</li><li>Software</li></ul><span class="card__index" aria-hidden="true">01</span></div>
+        <h4 class="card__title"><a href="../articles/local-first.html">Sovereign Software</a></h4>
+        <p class="card__excerpt">Cards are notched, hairline-bordered, and turn brass on hover or focus.</p>
+        <p class="card__meta"><span>12 Oct 2026</span><span>7 min read</span></p>
+      </article>
+      <h3>Project row</h3>
+      <ul class="project-rows">
+        <li><article class="project-row"><div class="project-row__main"><h4 class="project-row__name"><a href="../projects/">Quill</a></h4><p class="project-row__blurb">Rows list things that are not essays: a name, a line, a status.</p></div><p class="project-row__meta"><span class="status" data-status="prototype">Prototype</span><span>CRDTs · WebRTC</span></p></article></li>
+      </ul>
+      <h3>Status</h3>
+      <p class="status-demo"><span class="status" data-status="prototype">Prototype</span> <span class="status" data-status="research">Research</span> <span class="status" data-status="concept">Concept</span></p>
+      <h3>Note</h3>
+      <div class="aside-note"><strong>Note</strong>Notes frame an aside, with the same notched edge.</div>
+      <h3>Quote</h3>
+      <blockquote class="demo-quote"><p>The cloud is somebody else's castle.</p></blockquote>
+    </section>
+  </div>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p>© 2026 Oofytronic · <a href="../design-system/">Design system</a></p>
+    <p>Local-first · Peer-to-peer · No trackers</p>
+    <button type="button" class="motion-toggle" data-motion-toggle aria-pressed="false" hidden>Reduce motion</button>
+  </div>
+</footer>
+</body>
+</html>
