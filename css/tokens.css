@@ -46,12 +46,13 @@
   --space-7: 7rem;
 
   /* Shape & motion */
-  --radius: 2px;
+  --radius: 0; /* corners are square, or notched with concave arcs (see css/style.css) */
   --measure: 40rem;
   --wrap: 80rem;
   --gutter: 0rem; /* side room reserved for floating islands (wide screens only) */
   --section-space: clamp(5rem, 16vh, 9rem);
-  --radius-island: 1.1rem;
+  --notch-sm: 0.5rem;
+  --notch-lg: 0.75rem;
   --track-caps: 0.16em;
   --header-h: 4.75rem;
   --island-h: 2.75rem;
