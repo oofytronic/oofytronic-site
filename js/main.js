@@ -35,13 +35,13 @@ const scrollRatio = () => {
   const span = scrollHeight - clientHeight;
   return span > 0 ? clamp(0, 1)(window.scrollY / span) : 0;
 };
-const paintProgress = (bar) => () => bar.style.setProperty("--progress", scrollRatio());
+const paintProgress = () => root.style.setProperty("--progress", scrollRatio());
 
 const initProgress = () => {
   const bar = $(".progress");
   if (!bar) return;
-  on("scroll", paintProgress(bar))(window);
-  paintProgress(bar)();
+  on("scroll", paintProgress)(window);
+  paintProgress();
 };
 
 // ---------- Motion preference ----------
@@ -66,10 +66,18 @@ const islandState = ({ y, tops, line, atEnd }) => ({
   index: atEnd ? tops.length - 1 : activeIndex(tops, line),
 });
 
-// ---------- Filter dock: pure state calculation ----------
-// Shown while the writing section overlaps the middle band of the viewport.
-const dockState = ({ sectionTop, sectionBottom, viewport }) =>
-  sectionTop <= viewport * 0.6 && sectionBottom >= viewport * 0.4 ? "docked" : "away";
+// ---------- Floating islands: pure visibility rules ----------
+// Each rule takes the target's rect plus viewport height and returns "docked" or "away".
+const inBand = ({ top, bottom, viewport }) =>
+  top <= viewport * 0.6 && bottom >= viewport * 0.4 ? "docked" : "away"; // target overlaps the middle band
+const nearEnd = ({ bottom, viewport }) =>
+  bottom <= viewport * 0.85 ? "docked" : "away"; // the end of the target is approaching
+
+const FLOATING = [
+  { selector: ".filters", target: "#writing", rule: inBand },
+  { selector: ".toc", target: ".article__body", rule: inBand },
+  { selector: ".next-island", target: ".article__body", rule: nearEnd },
+];
 
 // ---------- Islands: DOM effects ----------
 const setFlag = (name) => (on_) => on_ ? root.setAttribute(name, "") : root.removeAttribute(name);
@@ -86,23 +94,38 @@ const paintCurrent = (links) => (target) =>
       ? a.setAttribute("aria-current", "location")
       : a.removeAttribute("aria-current"));
 
-const initDock = () => {
-  const dock = $(".filters");
-  const section = $("#writing");
-  if (!dock || !section) return { update: () => {}, reset: () => {} };
-  const measure = () => {
-    const { top, bottom } = section.getBoundingClientRect();
-    return { sectionTop: top, sectionBottom: bottom, viewport: window.innerHeight };
+const initFloating = () =>
+  FLOATING.flatMap(({ selector, target, rule }) => {
+    const el = $(selector);
+    const anchor = $(target);
+    if (!el || !anchor) return [];
+    const setDock = (state) => { el.dataset.dock = state; };
+    const measure = () => {
+      const { top, bottom } = anchor.getBoundingClientRect();
+      return { top, bottom, viewport: window.innerHeight };
+    };
+    return [{ update: () => setDock(rule(measure())), reset: () => setDock("flow") }];
+  });
+
+// Highlight the contents link for the heading currently being read.
+const initContents = () => {
+  const links = $$(".toc__list a");
+  const headings = links.map((a) => $(hashOf(a)));
+  if (!links.length) return { update: () => {}, reset: () => {} };
+  const mark = (index) =>
+    links.forEach((a, i) => i === index ? a.setAttribute("aria-current", "location") : a.removeAttribute("aria-current"));
+  return {
+    update: ({ tops, line, atEnd }) => mark(atEnd ? headings.length - 1 : activeIndex(headings.map((h) => h.getBoundingClientRect().top), line)),
+    reset: () => mark(-1),
   };
-  const apply = (state) => { dock.dataset.dock = state; };
-  return { update: () => apply(dockState(measure())), reset: () => apply("flow") };
 };
 
 const initIslands = () => {
-  const dock = initDock();
+  const floats = initFloating();
+  const contents = initContents();
   const slot = $(".island__context > span");
   const links = $$(".island li a");
-  const targets = $$("[data-context], .article__body h2");
+  const targets = $$("[data-context]");
   const measure = () => ({
     y: window.scrollY,
     tops: targets.map((el) => el.getBoundingClientRect().top),
@@ -110,17 +133,19 @@ const initIslands = () => {
     atEnd: window.scrollY + window.innerHeight >= root.scrollHeight - 2,
   });
   const update = () => {
-    const state = islandState(measure());
+    const reading = measure();
+    const state = islandState(reading);
     const target = targets[state.index];
     setScrolled(state.scrolled);
     paintContext(slot)(state.scrolled ? labelOf(target) : "");
     paintCurrent(links)(target);
-    dock.update();
+    floats.forEach((f) => f.update());
+    contents.update(reading);
   };
   let frame = 0;
   const schedule = () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(update); };
   const listen = () => (["scroll", "resize"].forEach((e) => window.addEventListener(e, schedule, { passive: true })), update());
-  const stop = () => (["scroll", "resize"].forEach((e) => window.removeEventListener(e, schedule)), setScrolled(false), setContextOpen(false), paintCurrent(links)(null), dock.reset());
+  const stop = () => (["scroll", "resize"].forEach((e) => window.removeEventListener(e, schedule)), setScrolled(false), setContextOpen(false), paintCurrent(links)(null), floats.forEach((f) => f.reset()), contents.reset());
   return { start: listen, stop };
 };
 

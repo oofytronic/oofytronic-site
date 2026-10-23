@@ -34,13 +34,23 @@
     <p class="article__dek">Social networks behave like medieval estates: you till the land, they keep the harvest. What does an exit from the manor actually look like?</p>
     <p class="article__byline"><span>By Oofytronic</span><time datetime="2026-10-05">05 Oct 2026</time><span>8 min read</span></p>
   </header>
+  <nav class="toc" aria-label="Contents" data-dock="flow">
+    <p class="toc__title">In this essay</p>
+    <div class="toc__meter" aria-hidden="true"></div>
+    <ol class="toc__list">
+      <li><a href="#the-chains-are-identity-and-audience">The Chains Are Identity and Audience</a></li>
+      <li><a href="#three-roads-out">Three Roads Out</a></li>
+      <li><a href="#keys-are-identity">Keys Are Identity</a></li>
+      <li><a href="#a-charter-worth-having">A Charter Worth Having</a></li>
+    </ol>
+  </nav>
   <div class="article__body" data-context="Fealty Without Lords: Platforms as Digital Manors">
 <p>A platform is a manor. Its lord owns the land, sets the rules, and takes a tithe from every harvest. The serfs, who are you and me, produce the content, the audience and the graph of relationships, and are told they are free to leave. Free, that is, to leave everything behind.</p>
 <p>The analogy is imperfect, as all analogies are, but it clarifies where the leverage sits. The lord does not need to be cruel. He only needs to control the land.</p>
-<h2>The Chains Are Identity and Audience</h2>
+<h2 id="the-chains-are-identity-and-audience">The Chains Are Identity and Audience</h2>
 <p>When your identity is a row in someone else's database, your followers are bound to that database too. You cannot take them with you. This is the true lock-in: not the files, but the relationships.</p>
 <blockquote><p>A free person carries their name with them.</p><footer>The principle of portable identity</footer></blockquote>
-<h2>Three Roads Out</h2>
+<h2 id="three-roads-out">Three Roads Out</h2>
 <p>Several open protocols attack the problem from different angles:</p>
 <ul>
   <li><strong>ActivityPub</strong> federates many independent servers, the model behind Mastodon. You pick a home server, yet can speak to the whole network. Moving between servers is possible, though identity remains tied to a domain.</li>
@@ -48,12 +58,16 @@
   <li><strong>Nostr</strong> reduces identity to a keypair and messages to signed events relayed by simple servers. It is spartan, and its simplicity is the point.</li>
 </ul>
 <p>Each makes different trade-offs between convenience, moderation, discoverability and sovereignty. None is finished. All are more honest than the alternative.</p>
-<h2>Keys Are Identity</h2>
+<h2 id="keys-are-identity">Keys Are Identity</h2>
 <p>Cryptographic identity gives each person a seal that cannot be forged. But a seal that can be lost can also never be recovered by a benevolent clerk. Key management, through hardware wallets, social recovery and passkeys, is the unglamorous frontier where decentralization is won or lost.</p>
 <div class="aside-note"><strong>Note</strong> Decentralization is not a guarantee of virtue. It is a guarantee that the exit door exists, which is the precondition for every other freedom.</div>
-<h2>A Charter Worth Having</h2>
+<h2 id="a-charter-worth-having">A Charter Worth Having</h2>
 <p>I do not wish to abolish the lords so much as to make them unnecessary. Build on protocols, hold your own keys, and treat any hosted convenience as a guest house, never a home.</p>
   </div>
+  <aside class="next-island" data-dock="flow" aria-label="Continue reading">
+    <p class="next-island__label">Next essay</p>
+    <a class="next-island__link" href="automaton-scriptorium.html">The Automaton in the Scriptorium</a>
+  </aside>
   <footer class="article__footer">
     <a href="../index.html#writing">← All writing</a>
   </footer>

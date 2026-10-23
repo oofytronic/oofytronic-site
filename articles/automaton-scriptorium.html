@@ -34,20 +34,30 @@
     <p class="article__dek">Medieval monasteries ran on copyists. Today's AI agents are our tireless scribes, and the question is who holds the quill.</p>
     <p class="article__byline"><span>By Oofytronic</span><time datetime="2026-09-28">28 Sep 2026</time><span>6 min read</span></p>
   </header>
+  <nav class="toc" aria-label="Contents" data-dock="flow">
+    <p class="toc__title">In this essay</p>
+    <div class="toc__meter" aria-hidden="true"></div>
+    <ol class="toc__list">
+      <li><a href="#what-an-agent-really-is">What an Agent Really Is</a></li>
+      <li><a href="#keep-the-model-on-your-own-hardware">Keep the Model on Your Own Hardware</a></li>
+      <li><a href="#rules-for-employing-automata">Rules for Employing Automata</a></li>
+      <li><a href="#where-judgement-stays">Where Judgement Stays</a></li>
+    </ol>
+  </nav>
   <div class="article__body" data-context="The Automaton in the Scriptorium">
 <p>In a medieval scriptorium, monks copied manuscripts by hand, one painstaking letter at a time. A single book could consume a year. Then the press arrived, and the labour of a year became the labour of a week. The monks did not vanish; the work simply moved up the ladder, from copying to editing, illuminating and judgement.</p>
 <p>We stand at a similar threshold. AI agents are the new scribes: tireless, fast, and occasionally prone to inventing a saint that never existed.</p>
-<h2>What an Agent Really Is</h2>
+<h2 id="what-an-agent-really-is">What an Agent Really Is</h2>
 <p>Strip away the marketing and an agent is a loop: a model reads a goal, chooses a tool, observes the result, and repeats until finished or stopped. The power is in the tools, whether files, a browser, a shell or an API, and the danger is in the same place.</p>
 <blockquote><p>An agent is only as trustworthy as the walls around it.</p><footer>A rule of the workshop</footer></blockquote>
-<h2>Keep the Model on Your Own Hardware</h2>
+<h2 id="keep-the-model-on-your-own-hardware">Keep the Model on Your Own Hardware</h2>
 <p>There is a quiet convergence between this topic and the rest of my work. Open-weight models now run on consumer hardware, which means the model can run on your own machine, reading your own documents, without shipping your private ledger to a stranger. Local inference brings the local-first ethos to AI.</p>
 <ul>
   <li><strong>Privacy:</strong> sensitive material never leaves the device.</li>
   <li><strong>Resilience:</strong> the tool works when the API is down or the price changes.</li>
   <li><strong>Sovereignty:</strong> the model you rely on cannot be quietly swapped beneath you.</li>
 </ul>
-<h2>Rules for Employing Automata</h2>
+<h2 id="rules-for-employing-automata">Rules for Employing Automata</h2>
 <ol>
   <li><strong>Least privilege.</strong> Give the agent the narrowest set of tools that does the job.</li>
   <li><strong>Reversible by default.</strong> Prefer actions that can be undone; require a human seal for those that cannot.</li>
@@ -55,9 +65,13 @@
   <li><strong>Verify, then trust.</strong> Treat output as a draft from an apprentice, not a decree from an oracle.</li>
 </ol>
 <div class="aside-note"><strong>Note</strong> Automation that removes drudgery frees the craftsperson. Automation that removes accountability merely moves it somewhere you cannot see.</div>
-<h2>Where Judgement Stays</h2>
+<h2 id="where-judgement-stays">Where Judgement Stays</h2>
 <p>The scribe copies; the editor decides what is worth keeping. The future of work with AI belongs to those who keep taste, judgement and responsibility for themselves, and delegate only the copying.</p>
   </div>
+  <aside class="next-island" data-dock="flow" aria-label="Continue reading">
+    <p class="next-island__label">Next essay</p>
+    <a class="next-island__link" href="local-first.html">Sovereign Software: The Case for Local-First</a>
+  </aside>
   <footer class="article__footer">
     <a href="../index.html#writing">← All writing</a>
   </footer>

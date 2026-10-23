@@ -284,7 +284,7 @@ html[data-motion="full"] .about { min-height: 80svh; }
 .article__body { max-width: var(--measure); margin-inline: auto; font-family: var(--font-text); font-size: 1.22rem; line-height: 1.7; color: var(--text-soft); }
 .article__body p { margin-bottom: var(--space-4); }
 .article__body strong { color: var(--text); font-weight: 500; }
-.article__body h2 { font-family: var(--font-display); font-weight: 500; font-size: var(--step-3); line-height: 1.1; color: var(--text); margin: var(--space-6) 0 var(--space-3); }
+.article__body h2 { font-family: var(--font-display); font-weight: 500; font-size: var(--step-3); line-height: 1.1; color: var(--text); margin: var(--section-space) 0 var(--space-3); }
 .article__body ul, .article__body ol { padding-left: 1.3em; margin: 0 0 var(--space-4); }
 .article__body li { margin-bottom: var(--space-2); }
 .article__body li::marker { color: var(--accent); }
@@ -303,6 +303,69 @@ html[data-motion="full"] .about { min-height: 80svh; }
 .article__footer { max-width: var(--measure); margin: var(--space-6) auto 0; border-top: 1px solid var(--hairline); padding-top: var(--space-4); font-size: var(--step--1); }
 .article__footer a { color: var(--text-soft); text-decoration: none; }
 .article__footer a:hover { color: var(--accent); }
+
+/* ---------- Article islands: contents (left gutter) and next essay (right gutter) ----------
+   Static: ordinary in-flow blocks. Dynamic (wide): fixed islands whose data-dock is set by js/main.js. */
+.toc, .next-island {
+  max-width: var(--measure); margin: 0 auto var(--space-6); padding: var(--space-4);
+  border: 1px solid var(--hairline); border-radius: var(--radius);
+}
+.toc__title, .next-island__label { font-size: var(--step--2); font-weight: 500; letter-spacing: var(--track-caps); text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-2); }
+.toc__meter { display: none; }
+.toc__list { list-style: none; margin: 0; padding: 0; }
+.toc__list a { display: block; padding: var(--space-1) 0; color: var(--text-soft); text-decoration: none; transition: color var(--speed), background var(--speed); }
+.toc__list a:hover, .toc__list a[aria-current] { color: var(--accent); }
+.next-island { position: relative; margin-top: var(--space-6); transition: border-color var(--speed); }
+.next-island:hover, .next-island:focus-within { border-color: var(--accent); }
+.next-island__link { font-family: var(--font-display); font-size: var(--step-2); line-height: 1.15; color: var(--text); text-decoration: none; display: block; }
+.next-island__link::after { content: " →"; color: var(--accent); }
+.next-island__link::before { content: ""; position: absolute; inset: 0; } /* whole island is the link */
+
+html[data-motion="full"] .article__header { display: grid; align-content: center; min-height: min(62svh, 36rem); margin-bottom: var(--space-5); }
+
+html[data-motion="full"] .next-island {
+  position: fixed; z-index: 35; margin: 0;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  border-color: var(--hairline-strong); border-radius: var(--radius-island);
+  right: max(var(--space-4), calc((100% - var(--wrap)) / 2));
+  top: 50%; translate: 0 -50%; width: 14rem; padding: var(--space-3) var(--space-4);
+  transition: opacity var(--speed) var(--ease), transform var(--speed) var(--ease), visibility var(--speed), border-color var(--speed);
+}
+html[data-motion="full"] .next-island__link { font-size: var(--step-1); }
+html[data-motion="full"] .next-island[data-dock="away"] { opacity: 0; visibility: hidden; transform: translateX(0.75rem); }
+
+@media (max-width: 69.99rem) {
+  html[data-motion="full"] .next-island {
+    right: auto; left: 50%; translate: -50% 0; width: auto; max-width: calc(100vw - 2 * var(--space-3));
+    top: auto; bottom: calc(var(--space-3) + env(safe-area-inset-bottom));
+    display: flex; align-items: baseline; gap: var(--space-3); border-radius: 999px; padding: var(--space-2) var(--space-4);
+  }
+  html[data-motion="full"] .next-island__label { margin: 0; white-space: nowrap; }
+  html[data-motion="full"] .next-island__link { font-size: var(--step-0); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  html[data-motion="full"] .next-island[data-dock="away"] { transform: translateY(0.5rem); }
+}
+@media (max-width: 40rem) {
+  html[data-motion="full"] .next-island { bottom: calc(var(--space-3) + env(safe-area-inset-bottom) + var(--island-h) + var(--space-3)); }
+}
+@media (min-width: 70rem) {
+  html[data-motion="full"] .toc {
+    position: fixed; z-index: 35; margin: 0; width: 13rem; padding: var(--space-2);
+    top: calc(var(--space-3) + var(--island-h) + var(--space-2));
+    left: max(var(--space-4), calc((100% - var(--wrap)) / 2));
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    border-color: var(--hairline-strong); border-radius: var(--radius-island);
+    transition: opacity var(--speed) var(--ease), transform var(--speed) var(--ease), visibility var(--speed);
+  }
+  html[data-motion="full"] .toc[data-dock="away"] { opacity: 0; visibility: hidden; transform: translateX(-0.75rem); }
+  html[data-motion="full"] .toc__title { padding: var(--space-1) var(--space-3) 0; margin: 0; }
+  html[data-motion="full"] .toc__meter { display: block; height: 1px; margin: var(--space-2) var(--space-3); background: var(--hairline-strong); position: relative; }
+  html[data-motion="full"] .toc__meter::after { content: ""; position: absolute; inset: -0.5px 0; background: var(--accent); transform-origin: left; transform: scaleX(var(--progress, 0)); }
+  html[data-motion="full"] .toc__list a { padding: var(--space-2) var(--space-3); border-radius: calc(var(--radius-island) - 0.35rem); font-size: var(--step--1); line-height: 1.35; }
+  html[data-motion="full"] .toc__list a[aria-current] { background: color-mix(in srgb, var(--accent) 12%, transparent); }
+  html[data-motion="full"] .toc__list a:focus-visible { outline-offset: -3px; }
+}
 
 @media (max-width: 40rem) {
   html:not([data-motion="full"]) .site-header .wrap { flex-direction: column; gap: var(--space-3); }

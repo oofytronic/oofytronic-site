@@ -34,10 +34,20 @@
     <p class="article__dek">Your data should live on your own devices, not in a landlord's cloud. A field guide to software that still works when the network doesn't.</p>
     <p class="article__byline"><span>By Oofytronic</span><time datetime="2026-10-12">12 Oct 2026</time><span>7 min read</span></p>
   </header>
+  <nav class="toc" aria-label="Contents" data-dock="flow">
+    <p class="toc__title">In this essay</p>
+    <div class="toc__meter" aria-hidden="true"></div>
+    <ol class="toc__list">
+      <li><a href="#the-seven-ideals">The Seven Ideals</a></li>
+      <li><a href="#how-the-pieces-fit">How the Pieces Fit</a></li>
+      <li><a href="#the-honest-costs">The Honest Costs</a></li>
+      <li><a href="#where-to-begin">Where to Begin</a></li>
+    </ol>
+  </nav>
   <div class="article__body" data-context="Sovereign Software: The Case for Local-First">
 <p>Every app you use today is a lease. The documents you write, the notes you keep, the plans you make: they sit on a server owned by someone else, and the moment that someone changes their terms, raises their price, or simply goes out of business, you discover what you actually owned. Which was a login.</p>
 <p>Local-first software is the old and sensible alternative. The primary copy of your data lives on your own device. The network is a convenience, a road between devices, not the foundation under them.</p>
-<h2>The Seven Ideals</h2>
+<h2 id="the-seven-ideals">The Seven Ideals</h2>
 <p>The research lab Ink &amp; Switch articulated the movement in their 2019 essay <em>Local-First Software</em>, naming seven ideals. In my own words, a local-first application should:</p>
 <ol>
   <li>Feel instant, because it never waits on a distant server.</li>
@@ -49,19 +59,23 @@
   <li>Leave final control with the user.</li>
 </ol>
 <blockquote><p>The cloud is somebody else's castle. You are a guest in it, and guests may be asked to leave.</p><footer>A working maxim</footer></blockquote>
-<h2>How the Pieces Fit</h2>
+<h2 id="how-the-pieces-fit">How the Pieces Fit</h2>
 <p>The technical key is the <strong>CRDT</strong>, a conflict-free replicated data type. A CRDT is a data structure designed so that any two replicas, edited independently and in any order, can be merged into the same result without a central referee. Libraries such as Automerge and Yjs make this practical for text, lists and maps.</p>
 <p>Pair a CRDT with a sync layer, whether a relay you host, a peer-to-peer connection, or a simple dumb file store, and you obtain collaboration without a server that must be trusted with the meaning of your data. The server becomes a postal courier. It carries sealed letters and cannot read them.</p>
 <pre><code>// the shape of a local-first write
 doc = change(doc, d =&gt; { d.notes.push({ text: "Ship it" }) })
 await saveToDisk(doc)        // instant, always works
 peers.forEach(p =&gt; p.sync(doc)) // whenever the road allows</code></pre>
-<h2>The Honest Costs</h2>
+<h2 id="the-honest-costs">The Honest Costs</h2>
 <p>This is not free. Schema migrations are harder when you cannot upgrade every client at once. Access control is subtler when no central server enforces it. Storage grows with history unless you plan for compaction. And the product experience of "your data is a file on your machine" demands good design to avoid feeling like a regression to 1998.</p>
 <div class="aside-note"><strong>Note</strong> None of these are reasons to abandon the idea. They are the price of freehold, and freehold has always cost more than tenancy.</div>
-<h2>Where to Begin</h2>
+<h2 id="where-to-begin">Where to Begin</h2>
 <p>Start small. Choose one tool you rely on, and ask what would happen if its servers vanished tomorrow. Then build, or demand, the version that survives that morning.</p>
   </div>
+  <aside class="next-island" data-dock="flow" aria-label="Continue reading">
+    <p class="next-island__label">Next essay</p>
+    <a class="next-island__link" href="fealty-without-lords.html">Fealty Without Lords: Platforms as Digital Manors</a>
+  </aside>
   <footer class="article__footer">
     <a href="../index.html#writing">← All writing</a>
   </footer>
