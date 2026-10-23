@@ -30,16 +30,15 @@ h1, h2, h3 { text-wrap: balance; }
 :where(.card, .toc, .next-island, .aside-note, .wordmark, .island, html[data-motion="full"] .filters) {
   --notch: var(--notch-sm);
   --notch-ring: calc(var(--notch) + 2px);
-  -webkit-mask:
-    radial-gradient(circle at 0 0, #0000 var(--notch), #000 calc(var(--notch) + 0.5px)) 0 0 / 51% 51% no-repeat,
-    radial-gradient(circle at 100% 0, #0000 var(--notch), #000 calc(var(--notch) + 0.5px)) 100% 0 / 51% 51% no-repeat,
-    radial-gradient(circle at 0 100%, #0000 var(--notch), #000 calc(var(--notch) + 0.5px)) 0 100% / 51% 51% no-repeat,
-    radial-gradient(circle at 100% 100%, #0000 var(--notch), #000 calc(var(--notch) + 0.5px)) 100% 100% / 51% 51% no-repeat;
+  /* One opaque layer minus four corner discs. Straight edges never depend on sub-pixel layer sizes. */
+  --notch-cut: calc(var(--notch) + 1px);
   mask:
-    radial-gradient(circle at 0 0, #0000 var(--notch), #000 calc(var(--notch) + 0.5px)) 0 0 / 51% 51% no-repeat,
-    radial-gradient(circle at 100% 0, #0000 var(--notch), #000 calc(var(--notch) + 0.5px)) 100% 0 / 51% 51% no-repeat,
-    radial-gradient(circle at 0 100%, #0000 var(--notch), #000 calc(var(--notch) + 0.5px)) 0 100% / 51% 51% no-repeat,
-    radial-gradient(circle at 100% 100%, #0000 var(--notch), #000 calc(var(--notch) + 0.5px)) 100% 100% / 51% 51% no-repeat;
+    linear-gradient(#000 0 0),
+    radial-gradient(circle at 0 0, #000 var(--notch), #0000 calc(var(--notch) + 0.5px)) 0 0 / var(--notch-cut) var(--notch-cut) no-repeat,
+    radial-gradient(circle at 100% 0, #000 var(--notch), #0000 calc(var(--notch) + 0.5px)) 100% 0 / var(--notch-cut) var(--notch-cut) no-repeat,
+    radial-gradient(circle at 0 100%, #000 var(--notch), #0000 calc(var(--notch) + 0.5px)) 0 100% / var(--notch-cut) var(--notch-cut) no-repeat,
+    radial-gradient(circle at 100% 100%, #000 var(--notch), #0000 calc(var(--notch) + 0.5px)) 100% 100% / var(--notch-cut) var(--notch-cut) no-repeat;
+  mask-composite: subtract, add, add, add, add;
 }
 :where(.card, .toc, .next-island, .aside-note) { --notch: var(--notch-lg); }
 :where(.card, .toc, .next-island, .aside-note, .wordmark, .island, html[data-motion="full"] .filters)::before {
@@ -142,7 +141,7 @@ html[data-motion="full"][data-scrolled][data-context-open] .island__context { gr
 @media (max-width: 40rem) {
   .island__context { display: none; }
   html[data-motion="full"] .island {
-    position: fixed; bottom: calc(var(--space-3) + env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%);
+    position: fixed; bottom: calc(var(--space-3) + env(safe-area-inset-bottom)); left: 0; right: 0; margin-inline: auto; width: fit-content;
     max-width: calc(100vw - 2 * var(--space-3));
     --edge: var(--hairline-strong); padding: var(--space-1);
     background: color-mix(in srgb, var(--bg) 88%, transparent);
@@ -227,7 +226,7 @@ html[data-motion="full"] .filters__count {
 @media (max-width: 63.99rem) {
   /* No gutter to live in: centre a horizontal pill along the bottom, scrolling sideways if needed. */
   html[data-motion="full"] .filters {
-    top: auto; right: auto; left: 50%; translate: -50% 0; flex-direction: row; min-width: 0;
+    top: auto; left: 0; right: 0; margin-inline: auto; width: fit-content; flex-direction: row; min-width: 0;
     bottom: calc(var(--space-3) + env(safe-area-inset-bottom));
     max-width: calc(100vw - 2 * var(--space-3)); padding: var(--space-1);
   }
@@ -361,7 +360,7 @@ html[data-motion="full"] .next-island {
   -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
   --edge: var(--hairline-strong);
   right: max(var(--space-4), calc((100% - var(--wrap)) / 2));
-  top: 50%; translate: 0 -50%; width: 14rem; padding: var(--space-3) var(--space-4);
+  top: 0; bottom: 0; margin-block: auto; height: fit-content; width: 14rem; padding: var(--space-3) var(--space-4);
   transition: opacity var(--speed) var(--ease), transform var(--speed) var(--ease), visibility var(--speed);
 }
 html[data-motion="full"] .next-island:hover, html[data-motion="full"] .next-island:focus-within { --edge: var(--accent); }
@@ -370,7 +369,7 @@ html[data-motion="full"] .next-island[data-dock="away"] { opacity: 0; visibility
 
 @media (max-width: 69.99rem) {
   html[data-motion="full"] .next-island {
-    right: auto; left: 50%; translate: -50% 0; width: auto; max-width: calc(100vw - 2 * var(--space-3));
+    left: 0; right: 0; margin-inline: auto; margin-block: 0; width: fit-content; height: auto; max-width: calc(100vw - 2 * var(--space-3));
     top: auto; bottom: calc(var(--space-3) + env(safe-area-inset-bottom));
     display: flex; align-items: baseline; gap: var(--space-3); padding: var(--space-2) var(--space-4);
   }
