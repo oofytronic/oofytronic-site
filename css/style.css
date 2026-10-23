@@ -80,7 +80,7 @@ h1, h2, h3 { text-wrap: balance; }
 html[data-motion="full"] { --zone-lift: 0px; }
 @media (max-width: 40rem) {
   html[data-motion="full"] { --zone-lift: calc(var(--island-h) + var(--space-3)); } /* the nav owns the very bottom */
-  .island__context { display: none; }
+  .island .island__context { display: none; } /* more specific than the base rule below, which would otherwise win */
 }
 
 /* Gutter presentation (left, right) */
