@@ -1,0 +1,67 @@
+/* Design tokens — every colour, size and flourish lives here. */
+:root {
+  /* Pigments */
+  --ink-900: #0d0b10;
+  --ink-800: #15121b;
+  --ink-700: #1e1a28;
+  --oxblood: #6b1d2a;
+  --oxblood-deep: #3c0f18;
+  --lapis: #25427a;
+  --verdigris: #3f8a76;
+  --gold-500: #c9a24b;
+  --gold-300: #e8c872;
+  --gold-700: #8c6b27;
+  --vellum-100: #f4ead2;
+  --vellum-300: #e6d6b0;
+  --vellum-500: #cdb88a;
+  --sepia-900: #2a1f17;
+  --sepia-600: #5a4632;
+
+  /* Semantic roles */
+  --bg: var(--ink-900);
+  --bg-raised: var(--ink-800);
+  --text: var(--vellum-100);
+  --text-muted: var(--vellum-500);
+  --accent: var(--gold-500);
+  --accent-bright: var(--gold-300);
+  --card-bg: var(--vellum-100);
+  --card-text: var(--sepia-900);
+  --card-muted: var(--sepia-600);
+  --rule: color-mix(in srgb, var(--gold-500) 45%, transparent);
+
+  /* Gilding */
+  --gilt: linear-gradient(135deg, var(--gold-700), var(--gold-300) 45%, var(--gold-500) 60%, var(--gold-700));
+
+  /* Type */
+  --font-display: "Cinzel Decorative", "Cinzel", "Trajan Pro", Georgia, serif;
+  --font-heading: "Cinzel", "Trajan Pro", Georgia, serif;
+  --font-body: "Cormorant Garamond", "EB Garamond", Garamond, Georgia, serif;
+  --font-blackletter: "UnifrakturCook", "Old English Text MT", serif;
+
+  --step--1: clamp(0.82rem, 0.8rem + 0.1vw, 0.9rem);
+  --step-0: clamp(1.15rem, 1.1rem + 0.25vw, 1.3rem);
+  --step-1: clamp(1.35rem, 1.25rem + 0.5vw, 1.65rem);
+  --step-2: clamp(1.7rem, 1.45rem + 1.2vw, 2.4rem);
+  --step-3: clamp(2.2rem, 1.7rem + 2.5vw, 3.6rem);
+  --step-4: clamp(2.1rem, 0.8rem + 7vw, 5.6rem);
+
+  /* Space */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2.5rem;
+  --space-6: 4rem;
+  --space-7: 6rem;
+
+  /* Shape & motion */
+  --measure: 66ch;
+  --wrap: 72rem;
+  --border-thin: 1px;
+  --border-bold: 3px;
+  --radius-arch: 999px 999px 0 0;
+  --shadow-card: 0 1px 0 var(--vellum-300) inset, 0 18px 40px -18px #000, 0 2px 6px #0008;
+  --shadow-glow: 0 0 0 1px var(--gold-500), 0 22px 50px -16px #000, 0 0 32px -4px color-mix(in srgb, var(--gold-500) 55%, transparent);
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --speed: 280ms;
+}
