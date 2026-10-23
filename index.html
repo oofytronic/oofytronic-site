@@ -42,13 +42,18 @@
   <section id="writing" class="index" data-context="Latest essays" aria-labelledby="writing-h">
     <div class="index__head">
       <h2 id="writing-h">Latest writing</h2>
-      <div class="filters" role="group" aria-label="Filter articles by topic">
-      <button type="button" data-filter="all" aria-pressed="true">All</button>
-      <button type="button" data-filter="local-first" aria-pressed="false">Local-first</button>
-      <button type="button" data-filter="p2p" aria-pressed="false">Peer-to-peer</button>
-      <button type="button" data-filter="decentralized" aria-pressed="false">Decentralized</button>
-      <button type="button" data-filter="ai" aria-pressed="false">AI</button>
-      <button type="button" data-filter="automation" aria-pressed="false">Automation</button>
+      <div class="filters-slot">
+        <div class="filters" data-dock="flow">
+          <div class="filters__group" role="group" aria-label="Filter articles by topic">
+            <button type="button" data-filter="all" aria-pressed="true">All</button>
+            <button type="button" data-filter="local-first" aria-pressed="false">Local-first</button>
+            <button type="button" data-filter="p2p" aria-pressed="false">Peer-to-peer</button>
+            <button type="button" data-filter="decentralized" aria-pressed="false">Decentralized</button>
+            <button type="button" data-filter="ai" aria-pressed="false">AI</button>
+            <button type="button" data-filter="automation" aria-pressed="false">Automation</button>
+          </div>
+          <p class="filters__count" role="status">3 essays</p>
+        </div>
       </div>
     </div>
     <ul class="card-grid">

@@ -145,15 +145,68 @@ html[data-motion="full"][data-scrolled][data-context-open] .island__context { gr
   border-top: 1px solid var(--hairline-strong); padding-top: var(--space-4); margin-bottom: var(--space-5);
 }
 .index__head h2 { font-family: var(--font-display); font-weight: 500; font-size: var(--step-2); }
-.filters { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4); }
+.filters-slot { flex: 1 1 20rem; display: flex; justify-content: flex-end; align-items: center; }
+.filters { display: flex; align-items: center; }
+.filters__group { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4); }
 .filters button {
-  font: inherit; font-size: var(--step--1); letter-spacing: 0.04em;
+  font: inherit; font-size: var(--step--1); letter-spacing: 0.04em; white-space: nowrap;
   background: none; border: 0; border-bottom: 1px solid transparent;
   color: var(--text-muted); padding: var(--space-1) 0; cursor: pointer;
-  transition: color var(--speed), border-color var(--speed);
+  transition: color var(--speed), border-color var(--speed), background var(--speed);
 }
 .filters button:hover { color: var(--text); }
 .filters button[aria-pressed="true"] { color: var(--text); border-bottom-color: var(--accent); }
+/* The count is a live region for everyone; it is only shown visually while docked. */
+.filters__count {
+  position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; margin: 0;
+}
+
+/* Dock island — see initDock() in js/main.js. Offsets mirror DOCK_TOP / DOCK_BOTTOM there. */
+html[data-motion="full"] .filters {
+  border: 1px solid transparent; border-radius: 999px; padding: 0;
+  transition:
+    opacity var(--speed) var(--ease), transform var(--speed) var(--ease), visibility var(--speed),
+    background var(--speed) var(--ease), border-color var(--speed) var(--ease), padding var(--speed) var(--ease);
+}
+html[data-motion="full"] .filters[data-dock="docked"],
+html[data-motion="full"] .filters[data-dock="away"] {
+  position: fixed; z-index: 35;
+  top: calc(var(--space-3) + var(--island-h) + var(--space-2)); /* static horizontal position keeps it on the wrap edge */
+  padding: var(--space-1);
+  border-color: var(--hairline-strong);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+}
+html[data-motion="full"] .filters[data-dock="away"] { opacity: 0; visibility: hidden; transform: translateY(-0.5rem); }
+html[data-motion="full"] .filters[data-dock="docked"] .filters__count {
+  position: static; width: auto; height: auto; overflow: visible; clip-path: none;
+  order: -1; margin: 0 var(--space-2) 0 var(--space-3); padding-right: var(--space-3);
+  border-right: 1px solid var(--hairline-strong);
+  font-size: var(--step--2); font-weight: 500; letter-spacing: var(--track-caps); text-transform: uppercase; color: var(--accent);
+}
+html[data-motion="full"] .filters[data-dock="docked"] .filters__group { gap: var(--space-1); flex-wrap: nowrap; }
+html[data-motion="full"] .filters[data-dock="docked"] button,
+html[data-motion="full"] .filters[data-dock="away"] button {
+  padding: var(--space-2) var(--space-3); border-radius: 999px; border-bottom-color: transparent;
+}
+html[data-motion="full"] .filters[data-dock="docked"] button[aria-pressed="true"],
+html[data-motion="full"] .filters[data-dock="away"] button[aria-pressed="true"] {
+  color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+html[data-motion="full"] .filters[data-dock="docked"] button:focus-visible { outline-offset: -3px; }
+
+@media (max-width: 40rem) {
+  /* Phones: dock above the bottom nav island, centred, scrolling sideways if needed. */
+  html[data-motion="full"] .filters[data-dock="docked"],
+  html[data-motion="full"] .filters[data-dock="away"] {
+    top: auto; left: 50%; translate: -50% 0;
+    bottom: calc(var(--space-3) + env(safe-area-inset-bottom) + var(--island-h) + var(--space-2) + var(--space-2));
+    max-width: calc(100vw - 2 * var(--space-3));
+  }
+  html[data-motion="full"] .filters[data-dock="away"] { transform: translateY(0.5rem); }
+  html[data-motion="full"] .filters[data-dock="docked"] .filters__group { overflow-x: auto; scrollbar-width: none; }
+  html[data-motion="full"] .filters[data-dock="docked"] .filters__count { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); border: 0; margin: 0; padding: 0; }
+}
 
 /* ---------- Cards ---------- */
 .card-grid {

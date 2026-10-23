@@ -14,11 +14,18 @@ const applyFilter = (items) => (tag) =>
 const setPressed = (buttons) => (tag) =>
   buttons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.filter === tag)));
 
+const countLabel = (visible, total) =>
+  visible === total ? `${total} essays` : `${visible} of ${total} essays`;
+const paintCount = (items) => {
+  const status = $(".filters__count");
+  if (status) status.textContent = countLabel(items.filter((el) => !el.hidden).length, items.length);
+};
+
 const initFilters = () => {
   const buttons = $$("[data-filter]");
   const items = $$("[data-tags]");
   if (!buttons.length) return;
-  const select = (tag) => (applyFilter(items)(tag), setPressed(buttons)(tag));
+  const select = (tag) => (applyFilter(items)(tag), setPressed(buttons)(tag), paintCount(items));
   buttons.forEach(on("click", (e) => select(e.currentTarget.dataset.filter)));
 };
 
@@ -59,6 +66,17 @@ const islandState = ({ y, tops, line, atEnd }) => ({
   index: atEnd ? tops.length - 1 : activeIndex(tops, line),
 });
 
+// ---------- Filter dock: pure state calculation ----------
+// px offsets mirror the CSS: the dock sits just beneath the nav island (top) or above it (phones).
+const DOCK_TOP = 68;
+const DOCK_BOTTOM = 112;
+// flow: in its natural place · docked: floating island · away: faded out (section is over).
+const dockState = ({ slotTop, slotBottom, sectionBottom, viewport, mobile }) => {
+  const passed = mobile ? slotBottom <= 0 : slotTop <= DOCK_TOP;
+  const edge = mobile ? viewport - DOCK_BOTTOM : DOCK_BOTTOM;
+  return !passed ? "flow" : sectionBottom <= edge ? "away" : "docked";
+};
+
 // ---------- Islands: DOM effects ----------
 const setFlag = (name) => (on_) => on_ ? root.setAttribute(name, "") : root.removeAttribute(name);
 const setScrolled = setFlag("data-scrolled");
@@ -74,7 +92,32 @@ const paintCurrent = (links) => (target) =>
       ? a.setAttribute("aria-current", "location")
       : a.removeAttribute("aria-current"));
 
+const initDock = () => {
+  const dock = $(".filters");
+  const slot = $(".filters-slot");
+  const section = $("#writing");
+  if (!dock || !slot || !section) return { update: () => {}, reset: () => {} };
+  const phone = window.matchMedia("(max-width: 40rem)");
+  const measure = () => {
+    const s = slot.getBoundingClientRect();
+    return {
+      slotTop: s.top, slotBottom: s.bottom,
+      sectionBottom: section.getBoundingClientRect().bottom,
+      viewport: window.innerHeight, mobile: phone.matches,
+    };
+  };
+  // Hold the slot open at the in-flow height so docking never shifts the page.
+  const holdSpace = () => { slot.style.minHeight = ""; slot.style.minHeight = `${dock.offsetHeight}px`; };
+  const apply = (state) => {
+    const changed = dock.dataset.dock !== state;
+    dock.dataset.dock = state;
+    if (state === "flow" && (changed || !slot.style.minHeight)) holdSpace();
+  };
+  return { update: () => apply(dockState(measure())), reset: () => { apply("flow"); slot.style.minHeight = ""; } };
+};
+
 const initIslands = () => {
+  const dock = initDock();
   const slot = $(".island__context > span");
   const links = $$(".island li a");
   const targets = $$("[data-context], .article__body h2");
@@ -90,11 +133,12 @@ const initIslands = () => {
     setScrolled(state.scrolled);
     paintContext(slot)(state.scrolled ? labelOf(target) : "");
     paintCurrent(links)(target);
+    dock.update();
   };
   let frame = 0;
   const schedule = () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(update); };
   const listen = () => (["scroll", "resize"].forEach((e) => window.addEventListener(e, schedule, { passive: true })), update());
-  const stop = () => (["scroll", "resize"].forEach((e) => window.removeEventListener(e, schedule)), setScrolled(false), setContextOpen(false), paintCurrent(links)(null));
+  const stop = () => (["scroll", "resize"].forEach((e) => window.removeEventListener(e, schedule)), setScrolled(false), setContextOpen(false), paintCurrent(links)(null), dock.reset());
   return { start: listen, stop };
 };
 
