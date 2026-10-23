@@ -50,6 +50,8 @@
   --measure: 40rem;
   --wrap: 70rem;
   --track-caps: 0.16em;
+  --header-h: 4.75rem;
+  --island-h: 2.75rem;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
   --speed: 240ms;
 }

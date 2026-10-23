@@ -16,8 +16,9 @@
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="wrap">
-    <a class="wordmark" href="index.html">Oofytronic</a>
-    <nav class="site-nav" aria-label="Primary">
+    <a class="wordmark" href="index.html"><span class="wordmark__o">O</span><span class="wordmark__rest"><span>ofytronic</span></span></a>
+    <nav class="island" aria-label="Primary">
+      <div class="island__context" aria-hidden="true"><span></span></div>
       <ul>
         <li><a href="index.html#writing">Writing</a></li>
         <li><a href="index.html#about">About</a></li>
@@ -38,7 +39,7 @@
   </div>
 </section>
 <div class="wrap">
-  <section id="writing" class="index" aria-labelledby="writing-h">
+  <section id="writing" class="index" data-context="Latest essays" aria-labelledby="writing-h">
     <div class="index__head">
       <h2 id="writing-h">Latest writing</h2>
       <div class="filters" role="group" aria-label="Filter articles by topic">
@@ -86,7 +87,7 @@
     </li>
     </ul>
   </section>
-  <section id="about" class="about" aria-labelledby="about-h">
+  <section id="about" class="about" data-context="The author" aria-labelledby="about-h">
     <h2 id="about-h">About</h2>
     <p>I'm Oofytronic. I write and build at the frontier of distributed, decentralized and local-first technology, on the conviction that tools should serve the people who own them.</p>
   </section>
@@ -96,6 +97,7 @@
   <div class="wrap">
     <p>© 2026 Oofytronic</p>
     <p>Local-first · Peer-to-peer · No trackers</p>
+    <button type="button" class="motion-toggle" data-motion-toggle aria-pressed="false" hidden>Reduce motion</button>
   </div>
 </footer>
 </body>
