@@ -15,7 +15,7 @@ Raised along the way, not yet scheduled:
 
 - [ ] Brand registry (deliberately skipped for now): one data file feeding the family island and portfolio
   lists, so a new product is one entry instead of edits in every site's header.
-- [ ] Set the real domains for Oofytronic and the motuALIS products in the family island once they exist.
+- [ ] Set the real domains for Oofytronic, Airlift and Common Tongue in the family island once they exist.
 - [ ] Drive the header zones (`top-left`, `top-right`) fully from the Zones CSS. They currently control only
   alignment and the phone behaviour; the wordmark and nav keep their own scroll-state styling.
 - [ ] Try `corner-shape: scoop` (with `border-radius`) as a progressive enhancement over the mask-based notched
@@ -111,10 +111,11 @@ the visitor scrolls. The aim is a strict, structured end state for this pattern,
 
 ## The motuALIS family
 
-Oofytronic is one member of a family under **motuALIS, LLC** (the quiet parent; it may be renamed
-Feathermode later, the current DBA). Members: motuALIS (parent), **Alula** (end-to-end communication, p2p /
-local-first), **Penna** (self-owned, token-based distribution), and Oofytronic (the personal tech blog).
-Alula and Penna are not live; the family island lists them as "Soon".
+Oofytronic is one member of a family under **motuALIS, LLC** (the quiet parent). Members: motuALIS (parent),
+**Feathermode** (a user-owned writing and self-publishing platform, feathermode.com, in private preview),
+**Airlift** (self-owned, token-based distribution) and **Common Tongue** (end-to-end, peer-to-peer
+communication), plus Oofytronic (the personal tech blog). Airlift and Common Tongue are not live; the family
+island lists them as "Soon".
 
 - The parent is quiet and institutional; each product has its own domain and its own look.
 - Shared across the family: this design system's grammar (spacing, hairlines, islands, zones, accessibility).
@@ -122,7 +123,7 @@ Alula and Penna are not live; the family island lists them as "Soon".
   cyan/violet, Urbanist, slightly rounded.
 - The family island's member list is **hand-maintained markup in each site**. A shared brand registry was
   deliberately skipped for now.
-- The full naming rationale lives in the motuALIS repository's `design.md`.
+- The full family and naming write-up lives in the motuALIS repository's `design.md`.
 
 ## Pages and URLs
 
