@@ -44,6 +44,21 @@ const initProgress = () => {
   paintProgress();
 };
 
+// ---------- Family island ----------
+// The island is a <details>, so it opens and closes natively; this only closes it on outside click or Escape.
+const closeFamily = (family) => (event) => {
+  const outside = event.type === "click" && !family.contains(event.target);
+  const escaped = event.type === "keydown" && event.key === "Escape";
+  if (!family.open || !(outside || escaped)) return;
+  family.open = false;
+  if (escaped) $("summary", family)?.focus();
+};
+const initFamily = () => {
+  const family = $(".family");
+  if (!family) return;
+  ["click", "keydown"].forEach((type) => document.addEventListener(type, closeFamily(family)));
+};
+
 // ---------- Motion preference ----------
 // "full" turns on the floating islands; "reduced" (or no JS) leaves a static page.
 const STORAGE_KEY = "oofytronic:motion";
@@ -180,4 +195,4 @@ const initTokens = () =>
     if (out) out.textContent = readToken(el.dataset.token);
   });
 
-[initFilters, initProgress, initMotion, initTokens].forEach((init) => init());
+[initFilters, initProgress, initMotion, initTokens, initFamily].forEach((init) => init());

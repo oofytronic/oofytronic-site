@@ -17,6 +17,18 @@
 <header class="site-header">
   <div class="wrap">
     <a class="wordmark" href="../" data-island="wordmark" data-zone="top-left" data-trigger="scrolled"><span class="wordmark__o">O</span><span class="wordmark__rest"><span>ofytronic</span></span></a>
+    <details class="family" data-island="family" data-zone="top-center" data-trigger="scrolled">
+      <summary class="family__summary"><span>Family</span><span class="family__chevron" aria-hidden="true"></span></summary>
+      <div class="family__panel">
+        <p class="family__title">The motuALIS family</p>
+        <ul class="family__list">
+        <li><a class="family__item" href="https://motualis.com" target="_blank" rel="noopener"><span class="family__name">motuALIS</span><span class="family__meta">Parent</span></a></li>
+        <li><span class="family__item family__item--soon"><span class="family__name">Alula</span><span class="family__meta">Communication · Soon</span></span></li>
+        <li><span class="family__item family__item--soon"><span class="family__name">Penna</span><span class="family__meta">Distribution · Soon</span></span></li>
+        <li><a class="family__item" href="../" aria-current="true"><span class="family__name">Oofytronic</span><span class="family__meta">Publication · You are here</span></a></li>
+        </ul>
+      </div>
+    </details>
     <nav class="island" aria-label="Primary" data-island="nav" data-zone="top-right" data-trigger="scrolled">
       <div class="island__context" aria-hidden="true"><span></span></div>
       <ul>
@@ -67,12 +79,13 @@
       <h3>Zones</h3>
       <figure class="zone-map notched notched--lg">
         <div class="zone zone--tl notched"><b>Wordmark</b><span>top-left</span></div>
+        <div class="zone zone--tc notched"><b>Family</b><span>top-center</span></div>
         <div class="zone zone--tr notched"><b>Nav</b><span>top-right</span></div>
         <div class="zone zone--gl notched"><b>Contents</b><span>left gutter</span></div>
         <div class="zone zone--main"><span>Content column</span><i></i><i></i><i></i></div>
         <div class="zone zone--gr notched"><b>Filters</b><b>Next essay</b><span>right gutter</span></div>
         <div class="zone zone--bc notched"><b>Compact pill</b><span>bottom, narrow screens</span></div>
-        <figcaption class="visually-hidden">Wordmark top-left, nav top-right, contents in the left gutter, filters and next essay in the right gutter, a compact pill along the bottom on narrow screens.</figcaption>
+        <figcaption class="visually-hidden">Wordmark top-left, family switcher top-centre, nav top-right, contents in the left gutter, filters and next essay in the right gutter, a compact pill along the bottom on narrow screens.</figcaption>
       </figure>
 
 
@@ -82,6 +95,7 @@
         <thead><tr><th scope="col">Zone</th><th scope="col">70rem and up</th><th scope="col">Below 70rem</th><th scope="col">Used by</th></tr></thead>
         <tbody>
           <tr><th scope="row"><code>top-left</code></th><td>Header, left edge</td><td>Same</td><td>Wordmark</td></tr>
+          <tr><th scope="row"><code>top-center</code></th><td>Header, centred</td><td>Same</td><td>Family</td></tr>
           <tr><th scope="row"><code>top-right</code></th><td>Header, right edge</td><td>Same; a bottom pill on phones</td><td>Nav</td></tr>
           <tr><th scope="row"><code>left</code></th><td>Left gutter, just beneath the header</td><td>In flow, as an ordinary block</td><td>Contents</td></tr>
           <tr><th scope="row"><code>right</code></th><td>Right gutter, beneath the header, or centred with <code>data-anchor="middle"</code></td><td>Bottom pill</td><td>Filters, Next essay</td></tr>
@@ -112,6 +126,7 @@
         <thead><tr><th scope="col">Island</th><th scope="col">Zone</th><th scope="col">Trigger</th><th scope="col">Target</th><th scope="col">Static fallback</th></tr></thead>
         <tbody>
           <tr><th scope="row">Wordmark</th><td>top-left</td><td><code>scrolled</code></td><td><code>—</code></td><td>Full wordmark in the header</td></tr>
+          <tr><th scope="row">Family</th><td>top-center</td><td><code>scrolled</code></td><td><code>—</code></td><td>A dropdown in the header (a native &lt;details&gt;; works with no JavaScript)</td></tr>
           <tr><th scope="row">Nav</th><td>top-right · bottom on phones</td><td><code>scrolled + scrollspy</code></td><td><code>[data-context]</code></td><td>Plain link row in the header</td></tr>
           <tr><th scope="row">Filters</th><td>right · bottom pill under 70rem</td><td><code>band</code></td><td><code>#writing</code></td><td>Horizontal row above the list</td></tr>
           <tr><th scope="row">Contents</th><td>left · in flow under 70rem</td><td><code>band</code></td><td><code>page body</code></td><td>Inline list under the title</td></tr>

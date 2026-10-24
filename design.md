@@ -13,6 +13,9 @@ file should be corrected.
 
 Raised along the way, not yet scheduled:
 
+- [ ] Brand registry (deliberately skipped for now): one data file feeding the family island and portfolio
+  lists, so a new product is one entry instead of edits in every site's header.
+- [ ] Set the real domains for Oofytronic and the motuALIS products in the family island once they exist.
 - [ ] Drive the header zones (`top-left`, `top-right`) fully from the Zones CSS. They currently control only
   alignment and the phone behaviour; the wordmark and nav keep their own scroll-state styling.
 - [ ] Try `corner-shape: scoop` (with `border-radius`) as a progressive enhancement over the mask-based notched
@@ -84,11 +87,15 @@ the visitor scrolls. The aim is a strict, structured end state for this pattern,
   | Zone | 70rem and up | Below 70rem | Used by |
   | --- | --- | --- | --- |
   | `top-left` | Header, left edge | Same | Wordmark |
+  | `top-center` | Header, centred | Same | Family |
   | `top-right` | Header, right edge | Same; bottom pill on phones (40rem) | Nav |
   | `left` | Left gutter, just under the header | In flow | Contents |
   | `right` | Right gutter (`data-anchor="middle"` centres it) | Bottom pill | Filters, Next essay |
 
 - **Island registry.**
+  - *Family*: a `<details>` dropdown in the header listing every member of the motuALIS family and marking
+    the current one. Native open/close (works with no JavaScript); the script only closes it on outside click
+    or Escape. Boxes on scroll like the nav.
   - *Wordmark*: collapses to a square "O" badge on scroll (the placeholder for a future logo).
   - *Nav*: Writing / Projects / About; boxes on scroll and shows a context label (the section or article being
     read) with scrollspy highlighting.
@@ -101,6 +108,21 @@ the visitor scrolls. The aim is a strict, structured end state for this pattern,
   remembered. Reduced motion means the static baseline (nothing floats, nothing changes on scroll), not slower
   animation. Context text inside islands is `aria-hidden` because it repeats the page; the filter count is a
   polite live region. Anchor jumps leave room for the islands (`scroll-padding`).
+
+## The motuALIS family
+
+Oofytronic is one member of a family under **motuALIS, LLC** (the quiet parent; it may be renamed
+Feathermode later, the current DBA). Members: motuALIS (parent), **Alula** (end-to-end communication, p2p /
+local-first), **Penna** (self-owned, token-based distribution), and Oofytronic (the personal tech blog).
+Alula and Penna are not live; the family island lists them as "Soon".
+
+- The parent is quiet and institutional; each product has its own domain and its own look.
+- Shared across the family: this design system's grammar (spacing, hairlines, islands, zones, accessibility).
+  Free per brand: accent colours, typeface, corner shape. Oofytronic is brass, serif, notched; motuALIS is
+  cyan/violet, Urbanist, slightly rounded.
+- The family island's member list is **hand-maintained markup in each site**. A shared brand registry was
+  deliberately skipped for now.
+- The full naming rationale lives in the motuALIS repository's `design.md`.
 
 ## Pages and URLs
 
