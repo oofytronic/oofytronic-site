@@ -53,6 +53,7 @@
     <ol class="toc__list">
       <li><a href="#principles">Principles</a></li>
       <li><a href="#islands">Islands</a></li>
+      <li><a href="#stage">Stage</a></li>
       <li><a href="#color">Color</a></li>
       <li><a href="#type">Type</a></li>
       <li><a href="#space">Space &amp; shape</a></li>
@@ -70,6 +71,7 @@
         <li class="principle notched notched--lg"><span class="principle__n" aria-hidden="true">04</span><h3>Context is earned</h3><p>An island appears only while what it offers is relevant to what is on screen, and leaves when it is not. Quiet by default.</p></li>
         <li class="principle notched notched--lg"><span class="principle__n" aria-hidden="true">05</span><h3>State is declared, not scripted</h3><p>Markup declares what an island is; data attributes carry its state; CSS does all presentation. JavaScript only computes state, with pure functions.</p></li>
         <li class="principle notched notched--lg"><span class="principle__n" aria-hidden="true">06</span><h3>Square, or scooped</h3><p>Nothing is rounded. Corners are square, or bitten out as concave arcs, and the border always follows the arc.</p></li>
+        <li class="principle notched notched--lg"><span class="principle__n" aria-hidden="true">07</span><h3>Access, don't scroll</h3><p>Long-form text scrolls. Everything else is accessed, not scrolled to: a site can be a fixed stage of full-screen scenes, with the islands as its controls. A scrolling layout is always available.</p></li>
       </ol>
     </section>
 
@@ -98,7 +100,7 @@
           <tr><th scope="row"><code>top-left</code></th><td>Header, left edge</td><td>Same</td><td>Wordmark</td></tr>
           <tr><th scope="row"><code>top-center</code></th><td>Header, centred</td><td>Same</td><td>Family</td></tr>
           <tr><th scope="row"><code>top-right</code></th><td>Header, right edge</td><td>Same; a bottom pill on phones</td><td>Nav</td></tr>
-          <tr><th scope="row"><code>left</code></th><td>Left gutter, just beneath the header</td><td>In flow, as an ordinary block</td><td>Contents</td></tr>
+          <tr><th scope="row"><code>left</code></th><td>Left gutter, just beneath the header</td><td>In flow, as an ordinary block (a bottom dock on a stage page)</td><td>Contents, scene list</td></tr>
           <tr><th scope="row"><code>right</code></th><td>Right gutter, beneath the header, or centred with <code>data-anchor="middle"</code></td><td>Bottom pill</td><td>Filters, Next essay</td></tr>
         </tbody>
       </table></div>
@@ -118,6 +120,7 @@
           <tr><th scope="row"><code>scrolled</code></th><td>The page has moved more than 48px. Collapses the wordmark and boxes the nav.</td></tr>
           <tr><th scope="row"><code>band</code></th><td>The target overlaps the middle band of the viewport (between 40% and 60% of its height).</td></tr>
           <tr><th scope="row"><code>near-end</code></th><td>The bottom of the target has risen above 85% of the viewport: the end is coming.</td></tr>
+          <tr><th scope="row"><code>always</code></th><td>Every time the page is dynamic. Used by the stage's scene list, which stays visible.</td></tr>
           <tr><th scope="row"><code>scrollspy</code></th><td>The last <code>[data-context]</code> target whose top has passed the reading line at 30%. At the page end the final target wins.</td></tr>
         </tbody>
       </table></div>
@@ -159,6 +162,48 @@ const TRIGGER_RULES = { band: inBand, &quot;near-end&quot;: nearEnd };</code></p
         <li>Reduced motion means the static baseline, not a slower animation: nothing floats and nothing changes on scroll.</li>
         <li>Context text inside an island is <code>aria-hidden</code> because it repeats the page; counts that matter use a polite live region.</li>
         <li>Away islands leave the accessibility tree. Anchor jumps leave room for the islands via <code>scroll-padding</code>.</li>
+      </ul>
+    </section>
+
+
+    <section class="doc__section" data-context="Stage" aria-labelledby="stage">
+      <h2 id="stage">Stage</h2>
+      <p class="doc__lede">An alternative to the scrolling page for sites whose content is not long-form text. The page becomes a fixed stage of full-screen scenes, like a game or a film, and the islands are its controls.</p>
+
+      <h3>When to use it</h3>
+      <ul class="rules">
+        <li><strong>Long-form text scrolls.</strong> Articles, essays and documentation stay ordinary pages. This site is one: it scrolls.</li>
+        <li><strong>Everything else is accessed.</strong> A company site, a product page or a portfolio is a set of short pieces, and a visitor should reach each one without scrolling to it. motuALIS is built this way.</li>
+      </ul>
+
+      <h3>The model</h3>
+      <ul class="rules">
+        <li><strong>Scenes.</strong> Each scene fills the screen. Exactly one is active; the others are <code>inert</code> and off-screen.</li>
+        <li><strong>Axis.</strong> Landscape screens move along x, like film frames. Portrait screens move along y, like a reel. The page itself never scrolls.</li>
+        <li><strong>Pickers.</strong> More than one item in a scene (platforms, principles) becomes a level select: a tablist chooses, one panel shows. Without JavaScript every panel is visible.</li>
+        <li><strong>The HUD is the islands.</strong> The wordmark collapses after the title scene, the nav names the current scene, and the contents island becomes the scene list: a left gutter list on wide screens, a numbered dock with previous and next buttons below 70rem.</li>
+        <li><strong>Fit.</strong> Type follows the viewport height as well as the width. Secondary text (intros, notes, tags) steps aside on short screens but stays available to assistive technology. A scene can still scroll inside itself on very small screens, such as a landscape phone.</li>
+      </ul>
+
+      <h3>Controls</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th scope="col">Input</th><th scope="col">Effect</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Arrow keys, Page Up/Down</th><td>Previous or next scene. Home and End jump to the first and last.</td></tr>
+          <tr><th scope="row">Wheel or trackpad</th><td>One scene per burst of scrolling.</td></tr>
+          <tr><th scope="row">Swipe</th><td>Along the stage axis, past a 48px threshold.</td></tr>
+          <tr><th scope="row">Scene list, dock, step buttons</th><td>Jump to a scene, or step back and forward.</td></tr>
+          <tr><th scope="row">Links to <code>#scene</code></th><td>Intercepted, and focus moves to the scene heading. A direct link opens that scene.</td></tr>
+          <tr><th scope="row">Inside a picker</th><td>Arrow keys move between tabs, not scenes.</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Access</h3>
+      <ul class="rules">
+        <li>The stage is an enhancement. With JavaScript off, or when <code>prefers-reduced-motion</code> is set, the same markup is an ordinary scrolling page.</li>
+        <li>The first tab stop on a stage page is a button that switches to the scrolling layout; the footer toggle does the same and reverses it.</li>
+        <li>Inactive scenes are <code>inert</code>, so keyboard focus and screen readers only see the active one. A polite live region announces the scene.</li>
+        <li>The stage cannot be scrolled, even by a <code>#fragment</code> jump, which would otherwise shove it out of place.</li>
       </ul>
     </section>
 

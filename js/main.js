@@ -90,7 +90,8 @@ const nearEnd = ({ bottom, viewport }) =>
 
 // Islands declare themselves in markup: data-island, data-zone, data-trigger, data-target.
 // The trigger name picks the rule; see /design-system/ for the registry.
-const TRIGGER_RULES = { band: inBand, "near-end": nearEnd };
+const always = () => "docked"; // visible whenever the page is dynamic (used by the stage's scene list)
+const TRIGGER_RULES = { band: inBand, "near-end": nearEnd, always };
 
 // ---------- Islands: DOM effects ----------
 const setFlag = (name) => (on_) => on_ ? root.setAttribute(name, "") : root.removeAttribute(name);
@@ -113,11 +114,11 @@ const initFloating = () =>
   $$("[data-island][data-trigger]").flatMap((el) => {
     const rule = TRIGGER_RULES[el.dataset.trigger]; // "scrolled" islands are driven by initIslands instead
     if (!rule) return [];
-    const anchor = $(el.dataset.target);
-    if (!anchor) return [];
+    const anchor = el.dataset.target ? $(el.dataset.target) : null;
+    if (el.dataset.target && !anchor) return [];
     const setDock = (state) => { el.dataset.dock = state; };
     const measure = () => {
-      const { top, bottom } = anchor.getBoundingClientRect();
+      const { top, bottom } = anchor ? anchor.getBoundingClientRect() : { top: 0, bottom: 0 };
       return { top, bottom, viewport: window.innerHeight };
     };
     return [{ update: () => setDock(rule(measure())), reset: () => setDock("flow") }];

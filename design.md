@@ -79,7 +79,7 @@ the visitor scrolls. The aim is a strict, structured end state for this pattern,
   (what the rule measures), optional `data-anchor`. The script reads these; there is no hard-coded list.
 - **States.** `data-dock` is `flow` (in place), `docked` (floating, visible) or `away` (floating, hidden,
   out of the tab order and accessibility tree).
-- **Triggers** are pure functions of measurements: `scrolled` (past 48px), `band` (target overlaps the middle
+- **Triggers** are pure functions of measurements: `scrolled` (past 48px), `always` (docked whenever dynamic), `band` (target overlaps the middle
   40–60% of the viewport), `near-end` (target bottom above 85% of the viewport), plus scrollspy (reading line
   at 30%; the page end selects the last target).
 - **Zones**, defined once in the Zones section of `css/style.css`. Islands only name their zone.
@@ -108,6 +108,29 @@ the visitor scrolls. The aim is a strict, structured end state for this pattern,
   remembered. Reduced motion means the static baseline (nothing floats, nothing changes on scroll), not slower
   animation. Context text inside islands is `aria-hidden` because it repeats the page; the filter count is a
   polite live region. Anchor jumps leave room for the islands (`scroll-padding`).
+
+## Stage (for sites whose content is not long-form text)
+
+The design system has a second layout for content that is not long-form text. The rule is **access, don't
+scroll**: long-form text scrolls; everything else is reached, not scrolled to.
+
+- The page becomes a fixed **stage** of full-screen **scenes**. Landscape moves along x (like film frames),
+  portrait along y (like a reel). The page itself never scrolls.
+- Multiple items in one scene (platforms, principles) become a **picker**: a tablist chooses, one panel shows.
+- The islands are the HUD. The wordmark collapses after the title scene, the nav names the scene, and the
+  contents island becomes the **scene list** (`data-trigger="always"`): a left gutter list at 70rem and up, a
+  numbered dock with previous/next buttons below that.
+- Controls: arrow keys, Page Up/Down, Home/End, wheel (one scene per burst), swipe (48px), scene list, dock,
+  step buttons, `#scene` links and deep links. Arrows inside a picker move tabs, not scenes.
+- **Access.** It is an enhancement: with JavaScript off, or `prefers-reduced-motion`, or after the first-tab
+  "use the scrolling layout" button or the footer toggle, the same markup is an ordinary scrolling page.
+  Inactive scenes are `inert`; a polite live region announces the scene; focus moves to the scene heading on
+  link navigation; the stage cannot be scrolled by a `#fragment` jump (`overflow: clip` plus a scroll reset).
+- **Fit.** Type follows viewport height as well as width. On short screens secondary text (intros, notes, tags)
+  is visually hidden but stays available to assistive technology. Tested to fit with no scrolling from 360x640
+  phones to 1920x1080 monitors; a scene may scroll inside itself on a landscape phone.
+- Oofytronic itself is long-form, so it scrolls. motuALIS uses the stage. The implementation lives in the
+  motuALIS repository (`js/main.js`: `initStage`, `initPickers`; `css/style.css`: "Stage").
 
 ## The motuALIS family
 
