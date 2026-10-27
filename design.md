@@ -112,6 +112,7 @@ the visitor scrolls. The aim is a strict, structured end state for this pattern,
   - *Next essay* (articles): appears as the end of the article approaches.
 - **Gutters.** From 70rem up, sections get `--gutter` (14rem) of side padding so islands sit beside content and
   never on top of it.
+- **No flash on load.** A tiny inline script in each page's `<head>` sets `html[data-motion]` from the stored choice or the OS setting before the first paint, and floating islands start as `data-dock="away"` in the markup, so an island never shows up and then disappears. Only an island whose trigger is already satisfied fades in.
 - **Motion and access.** The page follows `prefers-reduced-motion` live; the footer toggle overrides it and is
   remembered. Reduced motion means the static baseline (nothing floats, nothing changes on scroll), not slower
   animation. Context text inside islands is `aria-hidden` because it repeats the page; the filter count is a

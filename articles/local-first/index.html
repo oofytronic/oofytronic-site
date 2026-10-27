@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="../../css/style.css">
+  <script>/* motion early: choose the layout before first paint so islands never flash */try{var m=localStorage.getItem("oofytronic:motion")}catch(e){}document.documentElement.dataset.motion=m||(matchMedia("(prefers-reduced-motion: reduce)").matches?"reduced":"full")</script>
   <script src="../../js/main.js" defer></script>
 </head>
 <body>
@@ -48,7 +49,7 @@
     <p class="article__dek">Your data should live on your own devices, not in a landlord's cloud. A field guide to software that still works when the network doesn't.</p>
     <p class="article__byline"><span>By Oofytronic</span><time datetime="2026-10-12">12 Oct 2026</time><span>7 min read</span></p>
   </header>
-  <nav class="toc" aria-label="Contents" data-island="contents" data-zone="left" data-trigger="band" data-target=".article__body" data-dock="flow">
+  <nav class="toc" aria-label="Contents" data-island="contents" data-zone="left" data-trigger="band" data-target=".article__body" data-dock="away">
     <p class="toc__title">In this essay</p>
     <div class="toc__meter" aria-hidden="true"></div>
     <ol class="toc__list">
@@ -86,7 +87,7 @@ peers.forEach(p =&gt; p.sync(doc)) // whenever the road allows</code></pre>
 <h2 id="where-to-begin">Where to Begin</h2>
 <p>Start small. Choose one tool you rely on, and ask what would happen if its servers vanished tomorrow. Then build, or demand, the version that survives that morning.</p>
   </div>
-  <aside class="subscribe-island" data-island="subscribe" data-zone="right" data-anchor="middle" data-trigger="past" data-target="[data-subscribe-cue]" data-dock="flow" aria-label="Subscribe">
+  <aside class="subscribe-island" data-island="subscribe" data-zone="right" data-anchor="middle" data-trigger="past" data-target="[data-subscribe-cue]" data-dock="away" aria-label="Subscribe">
     <p class="subscribe-island__label">Get the next essay by email</p>
     <form class="subscribe " action="mailto:hello@feathermode.com?subject=Subscribe%20to%20Oofytronic" method="post" enctype="text/plain">
     <label class="subscribe__label" for="island-email">Your email</label>

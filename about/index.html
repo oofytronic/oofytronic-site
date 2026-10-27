@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="../css/style.css">
+  <script>/* motion early: choose the layout before first paint so islands never flash */try{var m=localStorage.getItem("oofytronic:motion")}catch(e){}document.documentElement.dataset.motion=m||(matchMedia("(prefers-reduced-motion: reduce)").matches?"reduced":"full")</script>
   <script src="../js/main.js" defer></script>
 </head>
 <body>
@@ -47,7 +48,7 @@
     <h1 class="article__title">Hello, I'm Oofytronic</h1>
     <p class="article__dek">I write and build at the frontier of distributed, decentralized and local-first technology.</p>
   </header>
-  <nav class="toc" aria-label="Contents" data-island="contents" data-zone="left" data-trigger="band" data-target="#about-body" data-dock="flow">
+  <nav class="toc" aria-label="Contents" data-island="contents" data-zone="left" data-trigger="band" data-target="#about-body" data-dock="away">
     <p class="toc__title">On this page</p>
     <div class="toc__meter" aria-hidden="true"></div>
     <ol class="toc__list">
