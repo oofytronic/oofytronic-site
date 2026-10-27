@@ -58,8 +58,8 @@ Raised along the way, not yet scheduled:
 
 All values live in `css/tokens.css`.
 
-- **Colour.** Warm near-black ground, warm cream text, and a single **brass** accent used sparingly: labels, the
-  active item, hover. Pigments are `--night-950..700`, `--cream-100/300`, `--stone-500`, `--brass-400/600`;
+- **Colour.** Warm near-black ground, warm cream text, and a single **sky-blue** accent used sparingly: labels, the
+  active item, hover. Pigments are `--night-950..700`, `--cream-100/300`, `--stone-500`, `--sky-400/600`;
   roles (`--bg`, `--surface`, `--text`, `--accent`, `--hairline`, …) are built from them.
 - **Type.** Cormorant Garamond for display (headlines, wordmark), Inter for interface and metadata, Newsreader
   for long-form reading. A seven-step scale (`--step--2` to `--step-4`).
@@ -150,7 +150,7 @@ names.
 
 - The parent is quiet and institutional; each product has its own domain and its own look.
 - Shared across the family: this design system's grammar (spacing, hairlines, islands, zones, accessibility).
-  Free per brand: accent colours, typeface, corner shape. Oofytronic is brass, serif, notched; Feathermode is
+  Free per brand: accent colours, typeface, corner shape. Oofytronic is sky blue, serif, notched; Feathermode is
   cyan/violet, Urbanist, slightly rounded.
 - The dropdown sits top centre, and top right on phones (the nav is a bottom pill there, so the corner is free).
 - The family island's member list is **hand-maintained markup in each site**. A shared brand registry was

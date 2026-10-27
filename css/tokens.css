@@ -8,8 +8,8 @@
   --cream-100: #f1ebdd;
   --cream-300: #cfc7b4;
   --stone-500: #8f8878;
-  --brass-400: #c4a867;
-  --brass-600: #8f7740;
+  --sky-400: #6fb3f2;
+  --sky-600: #2f6fa8;
 
   /* Semantic roles */
   --bg: var(--night-950);
@@ -18,7 +18,7 @@
   --text: var(--cream-100);
   --text-soft: var(--cream-300);
   --text-muted: var(--stone-500);
-  --accent: var(--brass-400);
+  --accent: var(--sky-400);
   --hairline: color-mix(in srgb, var(--cream-100) 12%, transparent);
   --hairline-strong: color-mix(in srgb, var(--cream-100) 24%, transparent);
 

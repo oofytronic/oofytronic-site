@@ -18,7 +18,7 @@ img, svg { max-width: 100%; display: block; }
 a { color: inherit; text-decoration-color: var(--hairline-strong); text-underline-offset: 0.25em; }
 a:hover { text-decoration-color: var(--accent); }
 :focus-visible { outline: 1px solid var(--accent); outline-offset: 4px; }
-::selection { background: var(--brass-600); color: var(--night-950); }
+::selection { background: var(--sky-600); color: var(--cream-100); }
 h1, h2, h3, p { margin: 0; }
 h1, h2, h3 { text-wrap: balance; }
 
