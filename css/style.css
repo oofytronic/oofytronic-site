@@ -255,8 +255,8 @@ a.family__item:focus-visible { outline-offset: -3px; }
 .hero .wrap { position: relative; z-index: 1; }
 .hero h1 {
   font-family: var(--font-display); font-weight: 400;
-  font-size: var(--step-4); line-height: 1.02; letter-spacing: -0.01em;
-  max-width: 16ch; margin: var(--space-3) auto var(--space-4);
+  font-size: clamp(2.4rem, 1.6rem + 4vw, 4.4rem); line-height: 1.04; letter-spacing: -0.01em;
+  max-width: 22ch; margin: var(--space-3) auto var(--space-4);
 }
 .hero h1 em { font-style: italic; color: var(--accent); }
 .hero p.lede { max-width: 38rem; margin-inline: auto; color: var(--text-soft); font-size: var(--step-1); }
@@ -581,3 +581,7 @@ html[data-motion="full"] .doc__section { min-height: 60svh; }
   html[data-motion="full"] .site-header [data-zone="top-center"] { grid-column: 3; justify-self: end; }
   html[data-motion="full"] .family__panel { left: auto; right: 0; margin-left: 0; }
 }
+
+/* Placeholders: things that will exist later. Dimmed, not links, no hover. */
+.card--placeholder { opacity: 0.6; pointer-events: none; }
+.project-row--static:hover, .project-row--static:focus-within { background: none; }

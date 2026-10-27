@@ -24,8 +24,9 @@ Raised along the way, not yet scheduled:
   the one third-party request on the site.
 - [ ] Remove the duplicated header and footer markup (copied across every page) with a small generator or
   another approach that keeps pages working without JavaScript.
-- [ ] Replace the placeholder content: the three projects (Quill, Courier, Scribe) are examples, and the About
-  page is written only from what is known about the site's themes.
+- [ ] Fill the placeholders: the home page has one real article (Sovereign Software) plus two "coming soon"
+  cards and one "coming soon" project, and the Projects page has one placeholder entry. The About page is
+  written only from what is known about the site's themes.
 - [ ] Add an `/articles/` index page. Article URLs are folders, so `/articles/` itself currently has nothing.
 - [ ] Create the `experimental` branch when it is wanted (see Workflow).
 - [ ] Consider a light theme. The site is dark only.
@@ -99,7 +100,8 @@ the visitor scrolls. The aim is a strict, structured end state for this pattern,
   - *Wordmark*: collapses to a square "O" badge on scroll (the placeholder for a future logo).
   - *Nav*: Writing / Projects / About; boxes on scroll and shows a context label (the section or article being
     read) with scrollspy highlighting.
-  - *Filters* (home): topic list with a live count, shown while the writing list is on screen.
+  - *Filters*: topic list with a live count, shown while a writing list is on screen. Defined and styled, but
+    not in use now (the home page has only one article); `js/main.js` still handles it if it is added back.
   - *Contents* (articles, projects, about, design system): section list with a reading-progress meter.
   - *Next essay* (articles): appears as the end of the article approaches.
 - **Gutters.** From 70rem up, sections get `--gutter` (14rem) of side padding so islands sit beside content and
@@ -154,9 +156,12 @@ names.
 - Every page is a folder containing an `index.html`, so URLs have no `.html`: `/`, `/about/`, `/projects/`,
   `/design-system/`, `/articles/<slug>/`. Directory URLs need a static server or host; opening files straight
   from disk will not follow them.
-- **Home**: hero, latest writing (with filter island), projects, about teaser.
-- **Articles**: header, contents island, body, next-essay island. Three examples so far.
-- **Projects**: one full-height section per project, each linking to the related essay. Placeholder content.
+- **Home**: hero (the tagline is the h1: "Writing on Building an Ambient Lighter-than-Air Future for
+  Technology"), latest writing (one article and two dimmed "coming soon" cards, `.card--placeholder`),
+  projects (one placeholder row), about teaser.
+- **Articles**: header, contents island, body, next-essay island (only when there is a next essay). One
+  article so far.
+- **Projects**: one full-height section per project, each linking to the related essay. One placeholder for now.
 - **About**: introduction, topics, principles, notes on the site.
 - **Design system**: principles, islands (zones, states, triggers, registry, contract), colour, type, space and
   shape, components.
