@@ -88,10 +88,13 @@ const inBand = ({ top, bottom, viewport }) =>
 const nearEnd = ({ bottom, viewport }) =>
   bottom <= viewport * 0.85 ? "docked" : "away"; // the end of the target is approaching
 
+const past = ({ top, viewport }) =>
+  top <= viewport * 0.6 ? "docked" : "away"; // the target has come into view; stays until scrolled back above it
+
 // Islands declare themselves in markup: data-island, data-zone, data-trigger, data-target.
 // The trigger name picks the rule; see /design-system/ for the registry.
 const always = () => "docked"; // visible whenever the page is dynamic (used by the stage's scene list)
-const TRIGGER_RULES = { band: inBand, "near-end": nearEnd, always };
+const TRIGGER_RULES = { band: inBand, past, "near-end": nearEnd, always };
 
 // ---------- Islands: DOM effects ----------
 const setFlag = (name) => (on_) => on_ ? root.setAttribute(name, "") : root.removeAttribute(name);

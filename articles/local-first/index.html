@@ -73,7 +73,7 @@
   <li>Leave final control with the user.</li>
 </ol>
 <blockquote><p>The cloud is somebody else's castle. You are a guest in it, and guests may be asked to leave.</p><footer>A working maxim</footer></blockquote>
-<h2 id="how-the-pieces-fit">How the Pieces Fit</h2>
+<h2 id="how-the-pieces-fit" data-subscribe-cue>How the Pieces Fit</h2>
 <p>The technical key is the <strong>CRDT</strong>, a conflict-free replicated data type. A CRDT is a data structure designed so that any two replicas, edited independently and in any order, can be merged into the same result without a central referee. Libraries such as Automerge and Yjs make this practical for text, lists and maps.</p>
 <p>Pair a CRDT with a sync layer, whether a relay you host, a peer-to-peer connection, or a simple dumb file store, and you obtain collaboration without a server that must be trusted with the meaning of your data. The server becomes a postal courier. It carries sealed letters and cannot read them.</p>
 <pre><code>// the shape of a local-first write
@@ -86,6 +86,16 @@ peers.forEach(p =&gt; p.sync(doc)) // whenever the road allows</code></pre>
 <h2 id="where-to-begin">Where to Begin</h2>
 <p>Start small. Choose one tool you rely on, and ask what would happen if its servers vanished tomorrow. Then build, or demand, the version that survives that morning.</p>
   </div>
+  <aside class="subscribe-island" data-island="subscribe" data-zone="right" data-anchor="middle" data-trigger="past" data-target="[data-subscribe-cue]" data-dock="flow" aria-label="Subscribe">
+    <p class="subscribe-island__label">Get the next essay by email</p>
+    <form class="subscribe " action="mailto:hello@feathermode.com?subject=Subscribe%20to%20Oofytronic" method="post" enctype="text/plain">
+    <label class="subscribe__label" for="island-email">Your email</label>
+    <div class="subscribe__row">
+      <input id="island-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com">
+      <button type="submit">Subscribe</button>
+    </div>
+    </form>
+  </aside>
   <footer class="article__footer">
     <a href="../../#writing">← All writing</a>
   </footer>
@@ -93,6 +103,13 @@ peers.forEach(p =&gt; p.sync(doc)) // whenever the road allows</code></pre>
 </main>
 <footer class="site-footer">
   <div class="wrap">
+    <form class="subscribe subscribe--footer" action="mailto:hello@feathermode.com?subject=Subscribe%20to%20Oofytronic" method="post" enctype="text/plain">
+      <label class="subscribe__label" for="footer-email">Get new writing by email</label>
+      <div class="subscribe__row">
+        <input id="footer-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com">
+        <button type="submit">Subscribe</button>
+      </div>
+    </form>
     <p>© 2026 Oofytronic · <a href="../../design-system/">Design system</a></p>
     <p>Local-first · Peer-to-peer · No analytics, no cookies</p>
     <button type="button" class="motion-toggle" data-motion-toggle aria-pressed="false" hidden>Reduce motion</button>

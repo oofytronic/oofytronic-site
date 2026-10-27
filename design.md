@@ -7,6 +7,9 @@ file should be corrected.
 
 ## To do
 
+- [ ] **Subscribe needs a real list.** The footer form and the article island post to a `mailto:` address
+  (`hello@feathermode.com`, subject "Subscribe to Oofytronic"), so submitting opens the visitor's mail app.
+  Connect a newsletter provider and point the forms' `action` at it.
 - [ ] **Zone collisions.** Detect overlap between islands that share a zone, or stack them, so two islands can
   safely occupy one zone. Today "one island per zone is visible at a time" is a documented rule that holds
   only because islands in the same zone appear on different pages. Nothing enforces it.
@@ -103,6 +106,9 @@ the visitor scrolls. The aim is a strict, structured end state for this pattern,
   - *Filters*: topic list with a live count, shown while a writing list is on screen. Defined and styled, but
     not in use now (the home page has only one article); `js/main.js` still handles it if it is added back.
   - *Contents* (articles, projects, about, design system): section list with a reading-progress meter.
+  - *Subscribe* (articles): an email form in the right gutter that docks once a marked point in the article
+    (`[data-subscribe-cue]`) has come into view (trigger `past`) and stays until the reader scrolls back above
+    it. Hidden under 70rem and in the static layout, where the footer form is the way to subscribe.
   - *Next essay* (articles): appears as the end of the article approaches.
 - **Gutters.** From 70rem up, sections get `--gutter` (14rem) of side padding so islands sit beside content and
   never on top of it.

@@ -86,7 +86,7 @@
         <div class="zone zone--tr notched"><b>Nav</b><span>top-right</span></div>
         <div class="zone zone--gl notched"><b>Contents</b><span>left gutter</span></div>
         <div class="zone zone--main"><span>Content column</span><i></i><i></i><i></i></div>
-        <div class="zone zone--gr notched"><b>Filters</b><b>Next essay</b><span>right gutter</span></div>
+        <div class="zone zone--gr notched"><b>Filters</b><b>Next essay</b><b>Subscribe</b><span>right gutter</span></div>
         <div class="zone zone--bc notched"><b>Compact pill</b><span>bottom, narrow screens</span></div>
         <figcaption class="visually-hidden">Wordmark top-left, family switcher top-centre, nav top-right, contents in the left gutter, filters and next essay in the right gutter, a compact pill along the bottom on narrow screens.</figcaption>
       </figure>
@@ -101,7 +101,7 @@
           <tr><th scope="row"><code>top-center</code></th><td>Header, centred</td><td>Same; header, right edge on phones (40rem)</td><td>Family</td></tr>
           <tr><th scope="row"><code>top-right</code></th><td>Header, right edge</td><td>Same; a bottom pill on phones</td><td>Nav</td></tr>
           <tr><th scope="row"><code>left</code></th><td>Left gutter, just beneath the header</td><td>In flow, as an ordinary block (a bottom dock on a stage page)</td><td>Contents, scene list</td></tr>
-          <tr><th scope="row"><code>right</code></th><td>Right gutter, beneath the header, or centred with <code>data-anchor="middle"</code></td><td>Bottom pill</td><td>Filters, Next essay</td></tr>
+          <tr><th scope="row"><code>right</code></th><td>Right gutter, beneath the header, or centred with <code>data-anchor="middle"</code></td><td>Bottom pill</td><td>Filters, Next essay, Subscribe</td></tr>
         </tbody>
       </table></div>
       <p>One island per zone is visible at a time. Triggers are mutually exclusive on any given page, so islands in the same zone never collide.</p>
@@ -120,6 +120,7 @@
           <tr><th scope="row"><code>scrolled</code></th><td>The page has moved more than 48px. Collapses the wordmark and boxes the nav.</td></tr>
           <tr><th scope="row"><code>band</code></th><td>The target overlaps the middle band of the viewport (between 40% and 60% of its height).</td></tr>
           <tr><th scope="row"><code>near-end</code></th><td>The bottom of the target has risen above 85% of the viewport: the end is coming.</td></tr>
+          <tr><th scope="row"><code>past</code></th><td>The top of the target has risen above 60% of the viewport, so it has come into view. Stays docked until the reader scrolls back above it.</td></tr>
           <tr><th scope="row"><code>always</code></th><td>Every time the page is dynamic. Used by the stage's scene list, which stays visible.</td></tr>
           <tr><th scope="row"><code>scrollspy</code></th><td>The last <code>[data-context]</code> target whose top has passed the reading line at 30%. At the page end the final target wins.</td></tr>
         </tbody>
@@ -135,6 +136,7 @@
           <tr><th scope="row">Filters</th><td>right · bottom pill under 70rem</td><td><code>band</code></td><td><code>#writing</code></td><td>Horizontal row above the list</td></tr>
           <tr><th scope="row">Contents</th><td>left · in flow under 70rem</td><td><code>band</code></td><td><code>page body</code></td><td>Inline list under the title</td></tr>
           <tr><th scope="row">Next essay</th><td>right (middle) · bottom pill under 70rem</td><td><code>near-end</code></td><td><code>article body</code></td><td>Card at the end of the article</td></tr>
+          <tr><th scope="row">Subscribe</th><td>right (middle) · hidden under 70rem and when static</td><td><code>past</code></td><td><code>[data-subscribe-cue]</code></td><td>Email form that appears once a marked point in the article has come into view</td></tr>
         </tbody>
       </table></div>
 
@@ -154,7 +156,7 @@
 const inBand = ({ top, bottom, viewport }) =&gt;
   top &lt;= viewport * 0.6 &amp;&amp; bottom &gt;= viewport * 0.4 ? &quot;docked&quot; : &quot;away&quot;;
 
-const TRIGGER_RULES = { band: inBand, &quot;near-end&quot;: nearEnd };</code></pre>
+const TRIGGER_RULES = { band: inBand, past, &quot;near-end&quot;: nearEnd };</code></pre>
 
       <h3>Motion and access</h3>
       <ul class="rules">
@@ -285,6 +287,13 @@ const TRIGGER_RULES = { band: inBand, &quot;near-end&quot;: nearEnd };</code></p
 </main>
 <footer class="site-footer">
   <div class="wrap">
+    <form class="subscribe subscribe--footer" action="mailto:hello@feathermode.com?subject=Subscribe%20to%20Oofytronic" method="post" enctype="text/plain">
+      <label class="subscribe__label" for="footer-email">Get new writing by email</label>
+      <div class="subscribe__row">
+        <input id="footer-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com">
+        <button type="submit">Subscribe</button>
+      </div>
+    </form>
     <p>© 2026 Oofytronic · <a href="../design-system/">Design system</a></p>
     <p>Local-first · Peer-to-peer · No analytics, no cookies</p>
     <button type="button" class="motion-toggle" data-motion-toggle aria-pressed="false" hidden>Reduce motion</button>

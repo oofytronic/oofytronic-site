@@ -27,7 +27,7 @@ h1, h2, h3 { text-wrap: balance; }
    A mask cuts the element; ::before strokes the border and the arcs in the same colour (--edge). */
 @property --edge { syntax: "<color>"; inherits: true; initial-value: transparent; }
 
-:where(.card, .toc, .next-island, .aside-note, .notched, .wordmark, .island, .family__summary, .family__panel, html[data-motion="full"] .filters) {
+:where(.card, .toc, .next-island, .subscribe-island, .aside-note, .notched, .wordmark, .island, .family__summary, .family__panel, html[data-motion="full"] .filters) {
   --notch: var(--notch-sm);
   --notch-ring: calc(var(--notch) + 2px);
   /* One opaque layer minus four corner discs. Straight edges never depend on sub-pixel layer sizes. */
@@ -40,9 +40,9 @@ h1, h2, h3 { text-wrap: balance; }
     radial-gradient(circle at 100% 100%, #000 var(--notch), #0000 calc(var(--notch) + 0.5px)) 100% 100% / var(--notch-cut) var(--notch-cut) no-repeat;
   mask-composite: subtract, add, add, add, add;
 }
-:where(.card, .toc, .next-island, .aside-note, .notched--lg, .family__panel) { --notch: var(--notch-lg); }
+:where(.card, .toc, .next-island, .subscribe-island, .aside-note, .notched--lg, .family__panel) { --notch: var(--notch-lg); }
 .notched { position: relative; border: 1px solid transparent; --edge: var(--hairline-strong); }
-:where(.card, .toc, .next-island, .aside-note, .notched, .wordmark, .island, .family__summary, .family__panel, html[data-motion="full"] .filters)::before {
+:where(.card, .toc, .next-island, .subscribe-island, .aside-note, .notched, .wordmark, .island, .family__summary, .family__panel, html[data-motion="full"] .filters)::before {
   content: ""; position: absolute; inset: -1px; z-index: 1; pointer-events: none;
   border: 1px solid var(--edge);
   background:
@@ -406,7 +406,7 @@ html[data-motion="full"] .about { min-height: 80svh; }
 
 /* ---------- Article islands: contents and next essay ----------
    Static: ordinary in-flow blocks. Dynamic: placed by their zone (see Zones); only internals live here. */
-.toc, .next-island {
+.toc, .next-island, .subscribe-island {
   max-width: var(--measure); margin: 0 auto var(--space-6); padding: var(--space-4);
   position: relative; border: 1px solid transparent; --edge: var(--hairline);
 }
@@ -585,3 +585,28 @@ html[data-motion="full"] .doc__section { min-height: 60svh; }
 /* Placeholders: things that will exist later. Dimmed, not links, no hover. */
 .card--placeholder { opacity: 0.6; pointer-events: none; }
 .project-row--static:hover, .project-row--static:focus-within { background: none; }
+
+/* ---------- Subscribe: form (footer) and article island ---------- */
+.subscribe__label, .subscribe-island__label { display: block; font-size: var(--step--2); font-weight: 500; letter-spacing: var(--track-caps); text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-2); }
+.subscribe__row { display: flex; gap: var(--space-2); }
+.subscribe input, .subscribe button {
+  font: inherit; font-size: var(--step--1); min-width: 0; border-radius: 0; padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--hairline-strong); color: var(--text); background: transparent;
+}
+.subscribe input { flex: 1; transition: border-color var(--speed); }
+.subscribe input::placeholder { color: var(--text-muted); }
+.subscribe input:hover, .subscribe input:focus { border-color: var(--accent); }
+.subscribe input:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+.subscribe button { cursor: pointer; font-weight: 500; letter-spacing: 0.06em; color: var(--night-950); background: var(--accent); border-color: var(--accent); transition: filter var(--speed); }
+.subscribe button:hover { filter: brightness(1.12); }
+.subscribe button:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+.subscribe--footer { flex: 1 0 100%; margin-bottom: var(--space-3); }
+.subscribe--footer .subscribe__row { max-width: 30rem; }
+
+/* The island is for the right gutter only: stacked field and button; it is hidden in the static layout and
+   below 70rem, where the footer form is the way to subscribe. */
+.subscribe-island .subscribe__row { flex-direction: column; }
+.subscribe-island__label { margin-bottom: var(--space-3); line-height: 1.4; }
+.subscribe-island .subscribe__label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+html:not([data-motion="full"]) .subscribe-island { display: none; }
+@media (max-width: 69.99rem) { .subscribe-island { display: none; } }

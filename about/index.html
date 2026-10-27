@@ -99,6 +99,13 @@
 </main>
 <footer class="site-footer">
   <div class="wrap">
+    <form class="subscribe subscribe--footer" action="mailto:hello@feathermode.com?subject=Subscribe%20to%20Oofytronic" method="post" enctype="text/plain">
+      <label class="subscribe__label" for="footer-email">Get new writing by email</label>
+      <div class="subscribe__row">
+        <input id="footer-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com">
+        <button type="submit">Subscribe</button>
+      </div>
+    </form>
     <p>© 2026 Oofytronic · <a href="../design-system/">Design system</a></p>
     <p>Local-first · Peer-to-peer · No analytics, no cookies</p>
     <button type="button" class="motion-toggle" data-motion-toggle aria-pressed="false" hidden>Reduce motion</button>
