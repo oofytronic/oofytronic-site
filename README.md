@@ -31,6 +31,7 @@ about/index.html            about page (contents island)
 projects/index.html         projects page (one placeholder for now)
 design-system/index.html    the live design-system reference (tokens are read from the CSS)
 articles/local-first/       the one real article (contents island + subscribe island)
+assets/oof-icon.svg          the logo (cream "oof" mark) shown in the nav; assets/favicon.svg is the favicon
 css/tokens.css              every colour, size and space value (edit design here)
 css/style.css               all styles, in labelled sections (Zones, Header, Cards, Article, ...)
 js/main.js                  islands, triggers, motion preference, filters, family dropdown

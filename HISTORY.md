@@ -5,6 +5,10 @@ tried and reversed are listed on purpose, so nobody tries them again by accident
 
 ## Stage 5: part of a family, tidied up (25 to 27 Oct 2026)
 
+- **Logo and favicon (29 Oct 2026).** The "oof" icon from the `oofytronic/playlister` repo (`public/oof-icon.svg`) is now the
+  nav logo (shown beside the name, and alone in the collapsed badge) and, recoloured sky blue on the dark ground, the
+  favicon. Also fixed a horizontal overflow on narrow phones caused by the footer subscribe form.
+
 - `c53bf75` **No flash on load.** A tiny inline script in each `<head>` chooses the motion mode before first paint,
   and floating islands start as `data-dock="away"`. Before this, islands showed briefly and then vanished.
 - `717ee44` **Accent changed from brass to sky blue** (`--sky-400: #6fb3f2`, `--sky-600: #2f6fa8`), so the site no

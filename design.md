@@ -100,7 +100,7 @@ the visitor scrolls. The aim is a strict, structured end state for this pattern,
   - *Family*: a `<details>` dropdown in the header listing every member of the Feathermode family and marking
     the current one. Native open/close (works with no JavaScript); the script only closes it on outside click
     or Escape. Boxes on scroll like the nav.
-  - *Wordmark*: collapses to a square "O" badge on scroll (the placeholder for a future logo).
+  - *Wordmark*: the "oof" icon plus the name; collapses to a square badge holding just the icon on scroll.
   - *Nav*: Writing / Projects / About; boxes on scroll and shows a context label (the section or article being
     read) with scrollspy highlighting.
   - *Filters*: topic list with a live count, shown while a writing list is on screen. Defined and styled, but
