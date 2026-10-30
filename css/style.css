@@ -190,11 +190,9 @@ html[data-motion="full"] .island__context {
     padding var(--speed) var(--ease), letter-spacing var(--speed) var(--ease),
     grid-template-columns var(--speed) var(--ease), visibility var(--speed);
 }
+/* Scrolled: the logo shrinks to the bare icon, floating with no box, border or background */
 html[data-motion="full"][data-scrolled] .wordmark {
   min-width: var(--island-h); justify-content: center; letter-spacing: 0;
-  --edge: var(--hairline-strong);
-  background: color-mix(in srgb, var(--bg) 88%, transparent);
-  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
 }
 html[data-motion="full"][data-scrolled] .wordmark__rest { grid-template-columns: 0fr; }
 html[data-motion="full"][data-scrolled] .island {
@@ -206,7 +204,6 @@ html[data-motion="full"][data-scrolled] .island {
 html[data-motion="full"][data-scrolled][data-context-open] .island__context { grid-template-columns: 1fr; visibility: visible; }
 
 @supports not (backdrop-filter: blur(1px)) {
-  html[data-motion="full"][data-scrolled] .wordmark,
   html[data-motion="full"][data-scrolled] .island,
   html[data-motion="full"] [data-zone][data-dock] { background: var(--bg); }
 }

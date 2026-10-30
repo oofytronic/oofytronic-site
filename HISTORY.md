@@ -7,7 +7,7 @@ tried and reversed are listed on purpose, so nobody tries them again by accident
 
 - **Logo and favicon (29 Oct 2026).** The "oof" icon from the `oofytronic/playlister` repo (`public/oof-icon.svg`) is now the
   nav logo (shown beside the name, and alone in the collapsed badge) and, recoloured sky blue on the dark ground, the
-  favicon. A `favicon.ico` (root, 16/32/48) and an Apple touch icon (180 px) were added for browsers and apps that do not use SVG favicons. Also fixed a horizontal overflow on narrow phones caused by the footer subscribe form.
+  favicon. The scrolled logo has no box or border: just the bare icon floating. A `favicon.ico` (root, 16/32/48) and an Apple touch icon (180 px) were added for browsers and apps that do not use SVG favicons. Also fixed a horizontal overflow on narrow phones caused by the footer subscribe form.
 
 - `c53bf75` **No flash on load.** A tiny inline script in each `<head>` chooses the motion mode before first paint,
   and floating islands start as `data-dock="away"`. Before this, islands showed briefly and then vanished.
