@@ -18,7 +18,7 @@ Raised along the way, not yet scheduled:
 
 - [ ] Brand registry (deliberately skipped for now): one data file feeding the family island and portfolio
   lists, so a new product is one entry instead of edits in every site's header.
-- [ ] Set the real domains for Oofytronic, Airlift, Common Tongue and Nimbus Nectar in the family island once they exist.
+- [ ] Set the real domains for Oofytronic, Aerodash, Gondola and Nimbus Nectar in the family island once they exist.
 - [ ] Drive the header zones (`top-left`, `top-right`) fully from the Zones CSS. They currently control only
   alignment and the phone behaviour; the wordmark and nav keep their own scroll-state styling.
 - [ ] Try `corner-shape: scoop` (with `border-radius`) as a progressive enhancement over the mask-based notched
@@ -144,9 +144,9 @@ scroll**: long-form text scrolls; everything else is reached, not scrolled to.
 ## The Feathermode family
 
 Oofytronic is one member of a family under **Feathermode** (the parent; legal entity motuALIS, LLC, doing
-business as Feathermode). Members, in dropdown order: Feathermode (parent), Common Tongue (communication app),
-Airlift (distribution), Oofytronic (this personal blog) and Nimbus Nectar (a publication from Feathermode, to be
-spun up). Everything but Feathermode and Oofytronic shows as "Soon". Common Tongue and Airlift are working
+business as Feathermode). Members, in dropdown order: Feathermode (parent), Aerodash (the everything app),
+Gondola (distribution, a mini-app inside Aerodash), Oofytronic (this personal blog) and Nimbus Nectar (a publication from Feathermode, to be
+spun up). Everything but Feathermode and Oofytronic shows as "Soon". Aerodash and Gondola are working
 names.
 
 - The parent is quiet and institutional; each product has its own domain and its own look.
