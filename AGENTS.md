@@ -41,6 +41,6 @@ links. Headless Chromium (Playwright) was used for all checks so far; no real de
 
 ## Related sites
 
-Feathermode (parent), motuALIS (one-screen LLC page) and rhsattaur (author site) are separate repositories that
+Feathermode (parent), motuALIS (one-screen LLC page), rhsattaur (author site) and somium-solest (a fiction timeline site) are separate repositories that
 reuse this system. Their copies of the CSS and JS have diverged on purpose (palette, type, corners, trimmed
 features). There is no shared package yet.
