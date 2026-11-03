@@ -5,6 +5,8 @@ tried and reversed are listed on purpose, so nobody tries them again by accident
 
 ## Stage 5: part of a family, tidied up (25 to 27 Oct 2026)
 
+- **Transparent favicons (3 Nov 2026).** The favicon no longer has a dark square behind the mark. `assets/favicon.svg` is transparent and switches colour with the browser's light or dark theme; `favicon.ico` was regenerated with transparency. The Apple touch icon keeps a solid background on purpose.
+
 - **Product renames (31 Oct 2026).** In the family dropdown, Common Tongue became **Aerodash** (the everything app) and
   Airlift became **Gondola** (distribution, a mini-app inside Aerodash). Earlier entries below use the old names.
 
