@@ -1,5 +1,9 @@
 # History
 
+## First article taken down (14 Nov 2026)
+
+- `articles/local-first/` ("Sovereign Software: The Case for Local-First") was removed at the author's request, so they can write it themselves. The home card became a "coming soon" placeholder; links to it were removed from the Projects page and the design-system card example. The page is still in git history (commit `84473e5`) as the article template.
+
 How the site got to where it is, newest first within each stage. Commit hashes are on `trunk`. Decisions that were
 tried and reversed are listed on purpose, so nobody tries them again by accident.
 

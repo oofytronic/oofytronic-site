@@ -20,7 +20,7 @@ python3 -m http.server 8000      # any static server works
 # open http://localhost:8000/
 ```
 
-Pages are folders with an `index.html` (`/about/`, `/articles/local-first/`), so you need a static server, not
+Pages are folders with an `index.html` (`/about/`, `/projects/`), so you need a static server, not
 `file://`. Deploying is "serve the repo root"; there is nothing to build.
 
 ## What is where
@@ -30,7 +30,7 @@ index.html                  home: hero, latest writing, projects, about teaser
 about/index.html            about page (contents island)
 projects/index.html         projects page (one placeholder for now)
 design-system/index.html    the live design-system reference (tokens are read from the CSS)
-articles/local-first/       the one real article (contents island + subscribe island)
+articles/<slug>/            (none yet) one folder per article; the first article was taken down, its page is in git history (commit `84473e5`)
 assets/oof-icon.svg          the logo (cream "oof" mark) shown in the nav; assets/favicon.svg is the favicon; the favicons have transparent backgrounds (`assets/favicon.svg` switches between light and dark blue with the browser theme; `favicon.ico` in the root is the fallback). Only `assets/apple-touch-icon.png` has a solid dark background, because iOS fills transparency with black
 css/tokens.css              every colour, size and space value (edit design here)
 css/style.css               all styles, in labelled sections (Zones, Header, Cards, Article, ...)
@@ -61,7 +61,7 @@ AGENTS.md                   notes for AI agents / new contributors
 
 | I want to… | Do this |
 | --- | --- |
-| Add an article | Copy `articles/local-first/` to `articles/<slug>/`, edit it, add a card to the grid in `index.html`. Keep the `data-subscribe-cue` attribute on a heading about halfway down. If there is a next article, add a `next-island` (see `/design-system/`). |
+| Add an article | Restore the old article page from git history (commit `84473e5` (the page is `articles/local-first/index.html`)) into `articles/<slug>/`, edit it, add a card to the grid in `index.html`. Keep the `data-subscribe-cue` attribute on a heading about halfway down. If there is a next article, add a `next-island` (see `/design-system/`). |
 | Add a page | New `folder/index.html`; copy the header, footer and `<head>` (including the inline motion script) from `about/index.html`; add the nav link in every page. |
 | Change a colour or size | Edit `css/tokens.css` only. |
 | Change the family dropdown | Hand-edit the `<details class="family">` block in the header of **every** page (the list is duplicated by design; a shared registry was deliberately skipped). |

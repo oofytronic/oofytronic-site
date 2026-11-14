@@ -27,7 +27,7 @@ Raised along the way, not yet scheduled:
   the one third-party request on the site.
 - [ ] Remove the duplicated header and footer markup (copied across every page) with a small generator or
   another approach that keeps pages working without JavaScript.
-- [ ] Fill the placeholders: the home page has one real article (Sovereign Software) plus two "coming soon"
+- [ ] Fill the placeholders: the home page has three "coming soon"
   cards and one "coming soon" project, and the Projects page has one placeholder entry. The About page is
   written only from what is known about the site's themes.
 - [ ] Add an `/articles/` index page. Article URLs are folders, so `/articles/` itself currently has nothing.
@@ -104,7 +104,7 @@ the visitor scrolls. The aim is a strict, structured end state for this pattern,
   - *Nav*: Writing / Projects / About; boxes on scroll and shows a context label (the section or article being
     read) with scrollspy highlighting.
   - *Filters*: topic list with a live count, shown while a writing list is on screen. Defined and styled, but
-    not in use now (the home page has only one article); `js/main.js` still handles it if it is added back.
+    not in use now (the home page has no articles yet); `js/main.js` still handles it if it is added back.
   - *Contents* (articles, projects, about, design system): section list with a reading-progress meter.
   - *Subscribe* (articles): an email form in the right gutter that docks once a marked point in the article
     (`[data-subscribe-cue]`) has come into view (trigger `past`) and stays until the reader scrolls back above
@@ -164,10 +164,10 @@ names.
   `/design-system/`, `/articles/<slug>/`. Directory URLs need a static server or host; opening files straight
   from disk will not follow them.
 - **Home**: hero (the tagline is the h1: "Writing on Building an Ambient Lighter-than-Air Future for
-  Technology"), latest writing (one article and two dimmed "coming soon" cards, `.card--placeholder`),
+  Technology"), latest writing (three dimmed "coming soon" cards, `.card--placeholder`),
   projects (one placeholder row), about teaser.
-- **Articles**: header, contents island, body, next-essay island (only when there is a next essay). One
-  article so far.
+- **Articles**: header, contents island, body, next-essay island (only when there is a next essay). No
+  articles are published yet (the first was taken down; see git history for the template).
 - **Projects**: one full-height section per project, each linking to the related essay. One placeholder for now.
 - **About**: introduction, topics, principles, notes on the site.
 - **Design system**: principles, islands (zones, states, triggers, registry, contract), colour, type, space and
