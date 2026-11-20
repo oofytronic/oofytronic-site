@@ -1,5 +1,9 @@
 # History
 
+## Identities noted (20 Nov 2026)
+
+- `AGENTS.md` gained an **Identities** section (which persona is which, and the no-cross-linking rules).
+
 ## First article taken down (14 Nov 2026)
 
 - `articles/local-first/` ("Sovereign Software: The Case for Local-First") was removed at the author's request, so they can write it themselves. The home card became a "coming soon" placeholder; links to it were removed from the Projects page and the design-system card example. The page is still in git history (commit `84473e5`) as the article template.

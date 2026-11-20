@@ -44,3 +44,25 @@ links. Headless Chromium (Playwright) was used for all checks so far; no real de
 Feathermode (parent), motuALIS (one-screen LLC page), rhsattaur (author site) and somium-solest (a fiction timeline site) are separate repositories that
 reuse this system. Their copies of the CSS and JS have diverged on purpose (palette, type, corners, trimmed
 features). There is no shared package yet.
+
+## Identities (read before linking, crediting or naming anything)
+
+The author works under separate identities. Keep them straight:
+
+- **Oofytronic**: the tech persona (`oofytronic-site`).
+- **Feathermode**: the tech business (`feathermode-web`). It has customers, so it is the identity to protect most.
+- **R. H. Sattaur**: the author persona (`rhsattaur`, the Somium Solest site, the stories). Fiction lives on the sites; the
+  author's non-fiction lives elsewhere.
+- **Remain Human by R. H. Sattaur** (`remainhuman.me`, its own repo): essays and audio on philosophy, history, culture,
+  religion and economics, including American history and culture. It may be controversial.
+
+Rules:
+
+1. **Only `rhsattaur` links to Remain Human** (nav, home section and footer). No other site links to it, mentions it or
+   borrows its themes. Ask first before adding any other link.
+2. **Oofytronic and Feathermode do not link to, credit or mention** R. H. Sattaur, Remain Human or Somium Solest, and the
+   author sites do not link to them, unless a link already exists. Ask before adding a new cross-link between any two identities.
+3. Do not put the author's private email address, or any personal details, in public pages, commits or external requests.
+4. Do not invent biography, lore or copy for any identity; ask when text was not supplied.
+5. Do not share accounts, analytics or contact details between identities. Remain Human gets its own repo and hosting
+   account; ask which GitHub account before creating it.
